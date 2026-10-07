@@ -1,1606 +1,481 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>รู้ก่อนปลูก อะโวคาโด</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-title" content="รู้ทันภัย">
+<meta name="application-name" content="รู้ทันภัย">
+<meta name="description" content="รู้ทันภัย: ค้นหาตำบลที่ตั้งแปลง ดูความเสี่ยงภัยธรรมชาติ ฝน 10 ปีล่าสุด และการเตรียมรับเอลนีโญ พร้อมวิธีรับมือสำหรับไม้ผล">
+<meta name="theme-color" content="#17663f">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>รู้ทันภัย</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pridi:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
 <style>
-/* ============================================================
-   Leaflet 1.9.4 core CSS (inlined -- external stylesheets other
-   than Google Fonts are blocked in this artifact's CSP)
-   ============================================================ */
-.leaflet-pane,.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile-container,.leaflet-pane>svg,.leaflet-pane>canvas,.leaflet-zoom-box,.leaflet-image-layer,.leaflet-layer{position:absolute;left:0;top:0}
-.leaflet-container{overflow:hidden}
-.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow{-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-user-drag:none}
-.leaflet-tile::selection{background:transparent}
-.leaflet-safari .leaflet-tile{image-rendering:-webkit-optimize-contrast}
-.leaflet-safari .leaflet-tile-container{width:1600px;height:1600px;-webkit-transform-origin:0 0}
-.leaflet-marker-icon,.leaflet-marker-shadow{display:block}
-.leaflet-container .leaflet-overlay-pane svg{max-width:none!important;max-height:none!important}
-.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer,.leaflet-container .leaflet-tile{max-width:none!important;max-height:none!important;width:auto;padding:0}
-.leaflet-container img.leaflet-tile{mix-blend-mode:plus-lighter}
-.leaflet-container.leaflet-touch-zoom{-ms-touch-action:pan-x pan-y;touch-action:pan-x pan-y}
-.leaflet-container.leaflet-touch-drag{-ms-touch-action:pinch-zoom;touch-action:none;touch-action:pinch-zoom}
-.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom{-ms-touch-action:none;touch-action:none}
-.leaflet-container{-webkit-tap-highlight-color:transparent}
-.leaflet-container a{-webkit-tap-highlight-color:rgba(51,181,229,.4)}
-.leaflet-tile{filter:inherit;visibility:hidden}
-.leaflet-tile-loaded{visibility:inherit}
-.leaflet-zoom-box{width:0;height:0;box-sizing:border-box;z-index:800}
-.leaflet-overlay-pane svg{-moz-user-select:none}
-.leaflet-pane{z-index:400}
-.leaflet-tile-pane{z-index:200}
-.leaflet-overlay-pane{z-index:400}
-.leaflet-shadow-pane{z-index:500}
-.leaflet-marker-pane{z-index:600}
-.leaflet-tooltip-pane{z-index:650}
-.leaflet-popup-pane{z-index:700}
-.leaflet-map-pane canvas{z-index:100}
-.leaflet-map-pane svg{z-index:200}
-.leaflet-vml-shape{width:1px;height:1px}
-.lvml{behavior:url(#default#VML);display:inline-block;position:absolute}
-.leaflet-control{position:relative;z-index:800;pointer-events:visiblePainted;pointer-events:auto}
-.leaflet-top,.leaflet-bottom{position:absolute;z-index:1000;pointer-events:none}
-.leaflet-top{top:0}
-.leaflet-right{right:0}
-.leaflet-bottom{bottom:0}
-.leaflet-left{left:0}
-.leaflet-control{float:left;clear:both}
-.leaflet-right .leaflet-control{float:right}
-.leaflet-top .leaflet-control{margin-top:10px}
-.leaflet-bottom .leaflet-control{margin-bottom:10px}
-.leaflet-left .leaflet-control{margin-left:10px}
-.leaflet-right .leaflet-control{margin-right:10px}
-.leaflet-fade-anim .leaflet-popup{opacity:0;transition:opacity .2s linear}
-.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1}
-.leaflet-zoom-animated{transform-origin:0 0}
-svg.leaflet-zoom-animated{will-change:transform}
-.leaflet-zoom-anim .leaflet-zoom-animated{transition:transform .25s cubic-bezier(0,0,.25,1)}
-.leaflet-zoom-anim .leaflet-tile,.leaflet-pan-anim .leaflet-tile{transition:none}
-.leaflet-zoom-anim .leaflet-zoom-hide{visibility:hidden}
-.leaflet-interactive{cursor:pointer}
-.leaflet-grab{cursor:grab}
-.leaflet-crosshair,.leaflet-crosshair .leaflet-interactive{cursor:crosshair}
-.leaflet-popup-pane,.leaflet-control{cursor:auto}
-.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable{cursor:grabbing}
-.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-image-layer,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}
-.leaflet-marker-icon.leaflet-interactive,.leaflet-image-layer.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path{pointer-events:visiblePainted;pointer-events:auto}
-.leaflet-container{background:#ddd;outline-offset:1px}
-.leaflet-container a{color:#0078A8}
-.leaflet-zoom-box{border:2px dotted #38f;background:rgba(255,255,255,.5)}
-.leaflet-container{font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;font-size:.75rem;line-height:1.5}
-.leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,.65);border-radius:4px}
-.leaflet-bar a{background-color:#fff;border-bottom:1px solid #ccc;width:26px;height:26px;line-height:26px;display:block;text-align:center;text-decoration:none;color:#000}
-.leaflet-bar a,.leaflet-control-layers-toggle{background-position:50% 50%;background-repeat:no-repeat;display:block}
-.leaflet-bar a:hover,.leaflet-bar a:focus{background-color:#f4f4f4}
-.leaflet-bar a:first-child{border-top-left-radius:4px;border-top-right-radius:4px}
-.leaflet-bar a:last-child{border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-bottom:none}
-.leaflet-bar a.leaflet-disabled{cursor:default;background-color:#f4f4f4;color:#bbb}
-.leaflet-control-zoom-in,.leaflet-control-zoom-out{font:bold 18px 'Lucida Console',Monaco,monospace;text-indent:1px}
-.leaflet-control-attribution{background:rgba(255,255,255,.8);margin:0}
-.leaflet-control-attribution,.leaflet-control-scale-line{padding:0 5px;color:#333;line-height:1.4}
-.leaflet-control-attribution a{text-decoration:none}
-.leaflet-left .leaflet-control-scale{margin-left:5px}
-.leaflet-bottom .leaflet-control-scale{margin-bottom:5px}
-.leaflet-control-scale-line{border:2px solid #777;border-top:none;line-height:1.1;padding:2px 5px 1px;white-space:nowrap;box-sizing:border-box;background:rgba(255,255,255,.8);text-shadow:1px 1px #fff}
-.leaflet-popup{position:absolute;text-align:center;margin-bottom:20px}
-.leaflet-popup-content-wrapper{padding:1px;text-align:left;border-radius:12px}
-.leaflet-popup-content{margin:13px 24px 13px 20px;line-height:1.3;font-size:1.08333em;min-height:1px}
-.leaflet-popup-tip-container{width:40px;height:20px;position:absolute;left:50%;margin-top:-1px;margin-left:-20px;overflow:hidden;pointer-events:none}
-.leaflet-popup-tip{width:17px;height:17px;padding:1px;margin:-10px auto 0;pointer-events:auto;transform:rotate(45deg)}
-.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#fff;color:#333;box-shadow:0 3px 14px rgba(0,0,0,.4)}
-.leaflet-container a.leaflet-popup-close-button{position:absolute;top:0;right:0;border:none;text-align:center;width:24px;height:24px;font:16px/24px Tahoma,Verdana,sans-serif;color:#757575;text-decoration:none;background:transparent}
-.leaflet-container a.leaflet-popup-close-button:hover{color:#585858}
-.leaflet-popup-scrolled{overflow:auto}
-.leaflet-div-icon{background:#fff;border:1px solid #666}
-.leaflet-tooltip{position:absolute;padding:6px;background-color:#fff;border:1px solid #fff;border-radius:3px;color:#222;white-space:nowrap;user-select:none;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,.4)}
-.leaflet-tooltip.leaflet-interactive{cursor:pointer;pointer-events:auto}
-.leaflet-tooltip-top:before,.leaflet-tooltip-bottom:before,.leaflet-tooltip-left:before,.leaflet-tooltip-right:before{position:absolute;pointer-events:none;border:6px solid transparent;background:transparent;content:""}
-.leaflet-tooltip-bottom{margin-top:6px}
-.leaflet-tooltip-top{margin-top:-6px}
-.leaflet-tooltip-bottom:before,.leaflet-tooltip-top:before{left:50%;margin-left:-6px}
-.leaflet-tooltip-top:before{bottom:0;margin-bottom:-12px;border-top-color:#fff}
-.leaflet-tooltip-bottom:before{top:0;margin-top:-12px;margin-left:-6px;border-bottom-color:#fff}
-.leaflet-tooltip-left{margin-left:-6px}
-.leaflet-tooltip-right{margin-left:6px}
-.leaflet-tooltip-left:before,.leaflet-tooltip-right:before{top:50%;margin-top:-6px}
-.leaflet-tooltip-left:before{right:0;margin-right:-12px;border-left-color:#fff}
-.leaflet-tooltip-right:before{left:0;margin-left:-12px;border-right-color:#fff}
-
-/* ============================================================
-   App styles
-   ============================================================ */
+/* Layout: field-tool single column. Sticky locate bar; tinted location hero; hazards as severity cards with icon badges and level chips. */
 :root{
-  --accent:#3f6b4a;
-  --accent-strong:#2c4f37;
-  --accent-light:#7aa87f;
-  --accent-soft:#e7f1e5;
-  --bg:#faf6ec;
-  --bg-alt:#f1ead8;
-  --pit:#8a5a34;
-  --pit-soft:#f1e4d4;
-  --text:#2b2b22;
-  --text-muted:#6b6b5c;
-  --card-bg:#ffffff;
-  --border:#e3dcc9;
-  --red:#c0392b;
-  --yellow:#d9a441;
-  --green:#4a7c59;
-  --orange:#e0793b;
-  --gray:#b7b0a3;
-  --shadow:0 2px 10px rgba(60,50,30,0.08);
-  --shadow-md:0 6px 20px rgba(60,50,30,0.10);
-  --shadow-lg:0 14px 38px rgba(44,79,55,0.16);
-  --ring:0 0 0 4px rgba(63,107,74,0.14);
-  --radius-lg:18px;
-  --radius-md:14px;
-  --radius-sm:10px;
-  color-scheme: light;
+  --bg:#f3f6f2; --surface:#ffffff; --surface2:#eef3ee; --ink:#132019; --muted:#5d6b62; --faint:#97a39b; --line:#dfe6df; --line2:#d3dcd4;
+  --accent:#17663f; --accent2:#2f8f5b; --accent-ink:#ffffff; --accent-soft:#e3f0e7;
+  --hi:#c2412a; --hi-soft:#fbe9e4; --md:#b97b0e; --md-soft:#fbf1dc; --lo:#2f7d52; --lo-soft:#e4f1e8; --na:#b9c2bb;
+  --shadow:0 1px 2px rgba(19,32,25,.05),0 6px 20px -12px rgba(19,32,25,.18);
+  --fd:"Anuphan","IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
+  --f:"IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --accent:#7fb787;
-    --accent-strong:#9ccf9f;
-    --accent-light:#5a8a63;
-    --accent-soft:#26331f;
-    --bg:#1a1d17;
-    --bg-alt:#242920;
-    --pit:#c99a68;
-    --pit-soft:#332920;
-    --text:#ece9dd;
-    --text-muted:#a9a696;
-    --card-bg:#22261e;
-    --border:#3a4033;
-    --shadow:0 2px 12px rgba(0,0,0,0.35);
-    --shadow-md:0 8px 24px rgba(0,0,0,0.4);
-    --shadow-lg:0 16px 40px rgba(0,0,0,0.5);
-    --ring:0 0 0 4px rgba(127,183,135,0.18);
-    color-scheme: dark;
-  }
-}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c110e; --surface:#141b17; --surface2:#18211c; --ink:#e7eee9; --muted:#9aa8a0; --faint:#5f6b64; --line:#232d27; --line2:#2c3830;
+  --accent:#5fd08f; --accent2:#3fae72; --accent-ink:#06120b; --accent-soft:#16291e;
+  --hi:#f08a70; --hi-soft:#331c16; --md:#e8b456; --md-soft:#30260f; --lo:#7cc99a; --lo-soft:#15281d; --na:#46524b;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -14px rgba(0,0,0,.6); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --accent:#7fb787;
-  --accent-strong:#9ccf9f;
-  --accent-light:#5a8a63;
-  --accent-soft:#26331f;
-  --bg:#1a1d17;
-  --bg-alt:#242920;
-  --pit:#c99a68;
-  --pit-soft:#332920;
-  --text:#ece9dd;
-  --text-muted:#a9a696;
-  --card-bg:#22261e;
-  --border:#3a4033;
-  --shadow:0 2px 12px rgba(0,0,0,0.35);
-  --shadow-md:0 8px 24px rgba(0,0,0,0.4);
-  --shadow-lg:0 16px 40px rgba(0,0,0,0.5);
-  --ring:0 0 0 4px rgba(127,183,135,0.18);
-  color-scheme: dark;
-}
+  --bg:#0c110e; --surface:#141b17; --surface2:#18211c; --ink:#e7eee9; --muted:#9aa8a0; --faint:#5f6b64; --line:#232d27; --line2:#2c3830;
+  --accent:#5fd08f; --accent2:#3fae72; --accent-ink:#06120b; --accent-soft:#16291e;
+  --hi:#f08a70; --hi-soft:#331c16; --md:#e8b456; --md-soft:#30260f; --lo:#7cc99a; --lo-soft:#15281d; --na:#46524b;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -14px rgba(0,0,0,.6); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.6}
+h1,h2,h3,p{margin:0}
+input:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-*{box-sizing:border-box;}
-html,body{margin:0;padding:0;}
-body{
-  background:
-    radial-gradient(720px 420px at 92% -8%, var(--accent-soft) 0%, transparent 60%),
-    radial-gradient(600px 360px at -8% 8%, var(--pit-soft) 0%, transparent 55%),
-    var(--bg);
-  background-attachment:fixed;
-  color:var(--text);
-  font-family:'Sarabun',sans-serif;
-  line-height:1.55;
-  -webkit-font-smoothing:antialiased;
-}
-h1,h2,h3,h4{font-family:'Pridi',serif;font-weight:600;color:var(--text);margin:0 0 .4em;}
-a{color:var(--accent-strong);}
-button{font-family:inherit;}
-::selection{background:var(--accent-light);color:#fff;}
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid var(--line)}
+.bar{max-width:680px;margin:0 auto;padding-inline:16px;padding-block:10px 12px;display:flex;flex-direction:column;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--accent2),var(--accent));display:grid;place-items:center;flex:none}
+.logo svg{width:18px;height:18px;color:var(--accent-ink)}
+.brand b{font-family:var(--fd);font-size:1.2rem;font-weight:700;letter-spacing:-.01em}
+.brand span{font-size:.78rem;color:var(--muted);line-height:1.3;min-width:0}
+.locate{display:grid;grid-template-columns:auto 1fr;gap:8px}
+.gps{display:flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:600;font-size:.95rem;border:0;border-radius:14px;padding:12px 16px;background:linear-gradient(135deg,var(--accent2),var(--accent));color:var(--accent-ink);cursor:pointer;box-shadow:0 6px 16px -8px color-mix(in srgb,var(--accent) 70%,transparent);transition:transform .12s}
+.gps:active{transform:scale(.97)}
+.gps svg{width:19px;height:19px;flex:none}
+.gps[aria-busy="true"]{opacity:.7}
+.search{position:relative;min-width:0}
+.search input{width:100%;height:100%;font:inherit;font-size:.95rem;padding:11px 14px 11px 38px;border:1px solid var(--line2);border-radius:14px;background:var(--surface) no-repeat 12px 50%/18px;color:var(--ink)}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--faint);pointer-events:none}
+.search input::placeholder{color:var(--faint)}
+@media (max-width:420px){.locate{grid-template-columns:1fr}.gps{padding:13px}}
+.results{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--surface);border:1px solid var(--line);border-radius:14px;max-height:300px;overflow-y:auto;box-shadow:var(--shadow)}
+.results button{display:block;width:100%;text-align:left;font:inherit;background:none;border:0;border-bottom:1px solid var(--line);padding:10px 14px;color:var(--ink);cursor:pointer}
+.results button:last-child{border-bottom:0}
+.results button:hover{background:var(--accent-soft)}
+.results small{color:var(--muted)}
+.msg{font-size:.86rem;color:var(--muted)}
+.msg.err{color:var(--hi)}
 
-.wrap{max-width:1080px;margin:0 auto;padding:0 16px 48px;}
+main{max-width:680px;margin:0 auto;padding-inline:16px;padding-block:18px 56px;display:flex;flex-direction:column;gap:22px}
+h1{font-family:var(--fd);font-size:1.9rem;font-weight:700;line-height:1.2;letter-spacing:-.015em;text-wrap:balance}
+h2{font-family:var(--fd);font-size:1.08rem;font-weight:600;letter-spacing:-.005em;color:var(--ink)}
+.where{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:6px;padding:20px 20px 18px;border-radius:22px;background:linear-gradient(140deg,var(--accent-soft),var(--surface) 70%);border:1px solid var(--line)}
+.where::after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;border:26px solid color-mix(in srgb,var(--accent) 9%,transparent);pointer-events:none}
+.where .sub{color:var(--muted)}
+.tag{font-size:.72rem;font-weight:600;color:var(--md);background:var(--md-soft);border-radius:99px;padding:2px 10px;width:fit-content}
+section{display:flex;flex-direction:column;gap:12px}
+.shead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
 
-/* header */
-header.banner{
-  background:
-    radial-gradient(480px 260px at 88% -20%, rgba(255,255,255,.12) 0%, transparent 60%),
-    linear-gradient(135deg,var(--accent-strong),var(--accent) 65%,#5c9367);
-  color:#fdfbf3;
-  padding:28px 16px 44px;
-  position:relative;
-  overflow:hidden;
-}
-header.banner::before{
-  content:"";
-  position:absolute;inset:0;
-  background-image:
-    radial-gradient(circle at 15% 25%, rgba(255,255,255,.10) 0, rgba(255,255,255,.10) 2px, transparent 2.5px),
-    radial-gradient(circle at 45% 75%, rgba(255,255,255,.08) 0, rgba(255,255,255,.08) 2px, transparent 2.5px),
-    radial-gradient(circle at 75% 20%, rgba(255,255,255,.09) 0, rgba(255,255,255,.09) 2px, transparent 2.5px),
-    radial-gradient(circle at 92% 65%, rgba(255,255,255,.10) 0, rgba(255,255,255,.10) 2px, transparent 2.5px),
-    radial-gradient(circle at 30% 55%, rgba(255,255,255,.07) 0, rgba(255,255,255,.07) 1.5px, transparent 2px);
-  pointer-events:none;
-}
-header.banner::after{
-  content:"";
-  position:absolute;left:0;right:0;bottom:-1px;height:22px;
-  background:var(--bg);
-  border-radius:60% 60% 0 0 / 100% 100% 0 0;
-  transform:scaleX(1.4);
-}
-header.banner .wrap{
-  display:flex;align-items:center;gap:18px;max-width:1080px;position:relative;z-index:1;
-}
-.banner-icon-wrap{
-  flex:0 0 auto;width:64px;height:64px;border-radius:50%;
-  background:rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.28);
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 18px rgba(0,0,0,.15);
-}
-.banner-icon{width:42px;height:42px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));}
-.banner-titles{flex:1 1 auto;min-width:0;}
-.banner-titles h1{color:#fdfbf3;font-size:1.5rem;letter-spacing:.01em;margin:0;}
-.banner-titles p{margin:.3em 0 0;font-size:.88rem;color:#e7f0e2;opacity:.92;}
-.theme-toggle{
-  flex:0 0 auto;
-  background:rgba(255,255,255,.15);
-  border:1px solid rgba(255,255,255,.35);
-  color:#fdfbf3;
-  border-radius:999px;
-  width:42px;height:42px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;
-  font-size:1.15rem;
-  transition:background .15s, transform .15s;
-}
-.theme-toggle:hover{background:rgba(255,255,255,.28);transform:translateY(-1px);}
-.theme-toggle:active{transform:translateY(0);}
+/* area tiles */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (min-width:560px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.cell{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.cell span{font-size:.76rem;color:var(--muted)}
+.cell b{font-family:var(--fd);font-weight:600;font-size:1.1rem;font-variant-numeric:tabular-nums;line-height:1.35}
+.cell em{font-style:normal;font-size:.74rem;color:var(--faint)}
 
-/* controls */
-.controls{
-  margin-top:20px;
-  background:var(--card-bg);
-  border:1px solid var(--border);
-  border-radius:var(--radius-lg);
-  padding:18px;
-  box-shadow:var(--shadow-md);
-  position:relative;
-  z-index:2;
-}
-.search-row{position:relative;}
-.search-row input[type="text"]{
-  width:100%;
-  font-family:'Sarabun',sans-serif;
-  font-size:1rem;
-  padding:13px 14px 13px 42px;
-  border-radius:var(--radius-md);
-  border:1.5px solid var(--border);
-  background:var(--card-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b6b5c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M21 21l-4.3-4.3'/%3E%3C/svg%3E") no-repeat 14px center / 18px 18px;
-  color:var(--text);
-  outline:none;
-  box-shadow:var(--shadow);
-  transition:border-color .15s, box-shadow .15s;
-}
-.search-row input[type="text"]:focus{border-color:var(--accent);box-shadow:var(--ring);}
+/* hazard summary + cards */
+.sum{display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;border-radius:99px;padding:3px 10px;background:var(--surface2);color:var(--muted);white-space:nowrap}
+.chip i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.c3{background:var(--hi-soft);color:var(--hi)} .c2{background:var(--md-soft);color:var(--md)} .c1{background:var(--lo-soft);color:var(--lo)}
+.hz{display:flex;flex-direction:column;gap:10px}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)}
+.ihead{display:flex;align-items:center;gap:12px}
+.ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;flex:none;background:var(--lo-soft);color:var(--lo)}
+.ico svg{width:21px;height:21px}
+.s3 .ico{background:var(--hi-soft);color:var(--hi)} .s2 .ico{background:var(--md-soft);color:var(--md)}
+.ihead h3{font-family:var(--fd);font-size:1.05rem;font-weight:600;flex:1;min-width:0;line-height:1.3}
+.state{font-size:.76rem;font-weight:600;border-radius:99px;padding:3px 10px;background:var(--lo-soft);color:var(--lo);white-space:nowrap}
+.s3 .state{background:var(--hi-soft);color:var(--hi)} .s2 .state{background:var(--md-soft);color:var(--md)}
+.item p{color:var(--ink)}
+.item .src,.src{font-size:.78rem;color:var(--faint);line-height:1.5}
+.meter{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--surface2)}
+.meter span{height:100%}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--muted)}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+details{border-radius:12px;background:var(--surface2)}
+summary{list-style:none;cursor:pointer;padding:9px 14px;font-weight:600;font-size:.92rem;color:var(--accent);display:flex;justify-content:space-between;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .15s}
+details[open] summary::after{transform:rotate(-135deg) translateY(-2px)}
+details ul{margin:0;padding:0 14px 12px 32px;display:flex;flex-direction:column;gap:6px;font-size:.95rem}
+.mstrip{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;align-items:end}
+.mstrip div{display:flex;flex-direction:column;align-items:center;gap:3px;justify-content:flex-end;height:74px}
+.mstrip i{display:block;width:100%;max-width:18px;border-radius:4px 4px 2px 2px}
+.mstrip span{font-size:.58rem;color:var(--faint);white-space:nowrap;letter-spacing:-.02em}
 
-.locate-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  margin-top:12px;
-  padding:10px 18px;
-  border-radius:999px;
-  border:1.5px solid var(--accent);
-  background:var(--accent-soft);color:var(--accent-strong);
-  font-family:'Sarabun',sans-serif;font-size:.88rem;font-weight:600;
-  cursor:pointer;
-  transition:background .15s, transform .15s, box-shadow .15s;
-}
-.locate-btn svg{width:17px;height:17px;flex:0 0 auto;}
-.locate-btn:hover:not(:disabled){background:var(--accent);color:#fff;transform:translateY(-1px);box-shadow:var(--shadow);}
-.locate-btn:active:not(:disabled){transform:translateY(0);}
-.locate-btn:disabled{opacity:.45;cursor:not-allowed;}
-.locate-btn.locating svg{animation:locate-spin 1s linear infinite;}
-@keyframes locate-spin{to{transform:rotate(360deg);}}
-@media (max-width:640px){
-  .locate-btn{width:100%;justify-content:center;}
-}
-.search-suggest{
-  position:absolute;left:0;right:0;top:calc(100% + 6px);
-  background:var(--card-bg);
-  border:1px solid var(--border);
-  border-radius:var(--radius-sm);
-  box-shadow:var(--shadow-lg);
-  max-height:280px;overflow-y:auto;
-  z-index:500;
-  display:none;
-}
-.search-suggest.open{display:block;}
-.search-suggest .item{
-  padding:10px 14px;cursor:pointer;font-size:.92rem;
-  border-bottom:1px solid var(--border);
-  transition:background .1s;
-}
-.search-suggest .item:last-child{border-bottom:none;}
-.search-suggest .item:hover,.search-suggest .item.active{background:var(--accent-soft);}
-.search-suggest .item .loc{color:var(--text-muted);font-size:.82rem;}
-.search-suggest .empty{padding:10px 14px;color:var(--text-muted);font-size:.9rem;}
+/* rain */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font-size:11px;font-family:var(--f)}
+.kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.kv div{display:flex;flex-direction:column;background:var(--surface2);border-radius:14px;padding:10px 12px;min-width:0}
+.kv b{font-family:var(--fd);font-size:1.3rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.3}
+.kv span{font-size:.74rem;color:var(--muted);line-height:1.35}
+.rainlist{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+.rainlist li{display:grid;grid-template-columns:7em 1fr;gap:12px;padding-block:9px;border-bottom:1px solid var(--line)}
+.rainlist li:last-child{border-bottom:0}
+.rainlist li span{color:var(--muted);font-size:.86rem}
 
-.browse-toggle{
-  display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:.85rem;
-  color:var(--accent-strong);cursor:pointer;text-decoration:none;
-  background:none;border:none;padding:0;font-weight:600;
-}
-.browse-toggle:hover{text-decoration:underline;}
-.browse-toggle::before{content:"▸";display:inline-block;font-size:.8em;transition:transform .15s;}
-.browse-toggle.open::before{transform:rotate(90deg);}
-.browse-panel{
-  display:none;margin-top:10px;gap:8px;flex-wrap:wrap;
-}
-.browse-panel.open{display:flex;}
-.browse-panel select{
-  font-family:'Sarabun',sans-serif;font-size:.9rem;
-  padding:9px 10px;border-radius:var(--radius-sm);border:1.5px solid var(--border);
-  background:var(--card-bg);color:var(--text);flex:1 1 160px;min-width:140px;
-  transition:border-color .15s;
-}
-.browse-panel select:focus{border-color:var(--accent);outline:none;}
-
-.colorby-row{
-  display:flex;align-items:center;gap:8px;margin-top:16px;flex-wrap:wrap;
-  padding-top:14px;border-top:1px dashed var(--border);
-}
-.colorby-row label{font-size:.88rem;color:var(--text-muted);font-weight:600;}
-.colorby-row select{
-  font-family:'Sarabun',sans-serif;font-size:.92rem;font-weight:600;
-  padding:9px 30px 9px 14px;border-radius:999px;border:1.5px solid var(--accent-light);
-  background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232c4f37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 8px center / 16px 16px;
-  color:var(--accent-strong);appearance:none;-webkit-appearance:none;cursor:pointer;
-}
-
-/* map */
-.map-shell{
-  margin-top:16px;
-  border-radius:var(--radius-lg);
-  overflow:hidden;
-  border:1px solid var(--border);
-  box-shadow:var(--shadow-md);
-  position:relative;
-}
-#map{
-  width:100%;height:520px;background:var(--bg-alt);
-}
-@media (max-width:640px){ #map{height:400px;} }
-
-.map-hint{font-size:.8rem;color:var(--text-muted);margin-top:10px;text-align:center;}
-
-.legend{
-  position:absolute;right:10px;bottom:10px;z-index:900;
-  background:var(--card-bg);
-  border:1px solid var(--border);
-  border-radius:var(--radius-md);
-  padding:12px 14px;
-  box-shadow:var(--shadow-lg);
-  font-size:.78rem;
-  max-width:190px;
-  backdrop-filter:blur(6px);
-  background:color-mix(in srgb, var(--card-bg) 92%, transparent);
-}
-.legend h4{font-size:.74rem;margin:0 0 8px;font-family:'Sarabun',sans-serif;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;}
-.legend .row{display:flex;align-items:center;gap:8px;margin:5px 0;}
-.legend .sw{width:14px;height:14px;border-radius:4px;flex:0 0 auto;border:1px solid rgba(0,0,0,.12);box-shadow:0 1px 2px rgba(0,0,0,.08);}
-
-.locate-status{
-  margin-top:8px;font-size:.8rem;color:var(--text-muted);
-  display:none;line-height:1.4;
-}
-.locate-status.show{display:block;}
-.locate-status.error{color:var(--red);}
-
-.user-loc-dot .dot{
-  display:block;width:14px;height:14px;border-radius:50%;
-  background:#2f6fed;border:2px solid #fff;
-  box-shadow:0 0 0 4px rgba(47,111,237,.35);
-}
-
-/* report card */
-.report{margin-top:24px;}
-.report-empty{
-  padding:32px 18px;text-align:center;color:var(--text-muted);
-  background:var(--card-bg);border:1.5px dashed var(--border);border-radius:var(--radius-lg);font-size:.9rem;
-}
-.report-card{
-  background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);
-  padding:22px;box-shadow:var(--shadow-md);
-}
-.report-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;}
-.report-head h2{font-size:1.3rem;margin-bottom:.15em;}
-.report-head .loc{color:var(--text-muted);font-size:.88rem;}
-.report-head .code{color:var(--text-muted);font-size:.78rem;margin-top:.2em;}
-
-.risk-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:9px 16px;border-radius:999px;font-weight:700;font-size:.92rem;
-  color:#fff;margin-top:12px;box-shadow:var(--shadow);
-}
-.risk-badge .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.85);}
-.risk-summary{margin-top:10px;font-size:.94rem;color:var(--text);}
-
-.factor-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-  gap:14px;margin-top:20px;
-}
-.factor-card{
-  background:var(--bg-alt);border-radius:var(--radius-md);padding:14px 15px;
-  border-top:4px solid var(--gray);
-  transition:transform .15s, box-shadow .15s;
-}
-.factor-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
-.factor-card.dashed{border-top-style:dashed;}
-.factor-card .fhead{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text-muted);font-weight:700;}
-.factor-card .ficon{
-  flex:0 0 auto;width:26px;height:26px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--card-bg);box-shadow:0 1px 3px rgba(0,0,0,.08);
-}
-.factor-card .ficon svg{width:15px;height:15px;flex:0 0 auto;}
-.factor-card .fvalue{font-size:1.05rem;font-weight:700;margin-top:7px;color:var(--text);}
-.factor-card .fdesc{font-size:.8rem;color:var(--text-muted);margin-top:4px;line-height:1.5;}
-.factor-card .fbadge{
-  display:inline-block;margin-top:8px;font-size:.72rem;font-weight:700;
-  padding:3px 10px;border-radius:999px;color:#fff;letter-spacing:.01em;
-}
-
-.factor-card .sdetail{margin:8px 0 0;font-size:.8rem;}
-.factor-card .sdetail > div{
-  display:flex;justify-content:space-between;gap:10px;padding:4px 0;
-  border-top:1px dashed var(--border);
-}
-.factor-card .sdetail > div:first-child{border-top:none;padding-top:0;}
-.factor-card .sdetail dt{margin:0;color:var(--text-muted);}
-.factor-card .sdetail dd{margin:0;color:var(--text);font-weight:700;text-align:right;}
-.factor-card .sdetail-note{font-size:.8rem;color:var(--text-muted);margin-top:4px;line-height:1.5;}
-
-.soil-advice{
-  border-left:3px solid var(--pit);
-  background:linear-gradient(90deg, var(--pit-soft), var(--bg-alt) 45%);
-  border-radius:0 var(--radius-md) var(--radius-md) 0;
-  padding:14px 16px;margin-top:18px;
-}
-.soil-advice .sahead{display:flex;align-items:center;gap:9px;}
-.soil-advice .sahead .ficon{
-  flex:0 0 auto;width:28px;height:28px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--card-bg);box-shadow:0 1px 3px rgba(0,0,0,.08);
-}
-.soil-advice .sahead svg{width:16px;height:16px;flex:0 0 auto;color:var(--pit);}
-.soil-advice h4{font-size:.94rem;margin:0;font-family:'Sarabun',sans-serif;font-weight:700;}
-.soil-advice p{font-size:.86rem;margin:.6em 0 0;color:var(--text);line-height:1.6;}
-.soil-advice .foot{font-size:.74rem;color:var(--text-muted);margin-top:9px;}
-
-.advisory{margin-top:22px;}
-.advisory summary{
-  cursor:pointer;font-family:'Pridi',serif;font-weight:600;font-size:1.02rem;
-  padding:11px 4px;color:var(--accent-strong);list-style:none;
-  display:flex;align-items:center;gap:7px;
-  border-radius:var(--radius-sm);
-  transition:background .12s;
-}
-.advisory summary:hover{background:var(--accent-soft);}
-.advisory summary::-webkit-details-marker{display:none;}
-.advisory summary:before{content:"▸";transition:transform .15s;font-size:.8em;}
-.advisory[open] summary:before{transform:rotate(90deg);}
-.advisory-block{
-  border-left:3px solid var(--accent-light);
-  background:var(--bg-alt);
-  border-radius:0 var(--radius-md) var(--radius-md) 0;
-  padding:13px 15px;margin:9px 0;
-}
-.advisory-block .ahead{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap;}
-.advisory-block h4{font-size:.94rem;margin:0;font-family:'Sarabun',sans-serif;font-weight:700;}
-.advisory-block .lvl{font-size:.74rem;font-weight:700;color:var(--text-muted);background:var(--card-bg);padding:2px 9px;border-radius:999px;}
-.advisory-block p{font-size:.86rem;margin:.55em 0 0;color:var(--text);line-height:1.6;}
-.advisory-block .foot{font-size:.74rem;color:var(--text-muted);margin-top:7px;}
-.factor-card .foot{font-size:.74rem;color:var(--text-muted);margin-top:9px;line-height:1.4;}
-
-/* monthly rainfall bar charts (single-zone card chart + multi-zone compare grid) */
-.monthly-chart{width:100%;height:auto;display:block;margin-top:6px;}
-.monthly-chart .mbar{transition:opacity .1s;}
-.monthly-chart .mbar:hover{opacity:.8;}
-.monthly-chart .mbar-peak{font-size:9px;font-weight:700;fill:var(--text);font-family:'Sarabun',sans-serif;}
-.monthly-chart .mbar-axis{font-size:8px;fill:var(--text-muted);font-family:'Sarabun',sans-serif;}
-.rz-loading{color:var(--text-muted);font-size:.85rem;padding:10px 4px;}
-.rainzone-compare-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:6px;
-}
-.rz-card{
-  background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px 13px;
-}
-.rz-card .rzhead{display:flex;align-items:center;gap:7px;font-size:.86rem;font-weight:700;font-family:'Sarabun',sans-serif;}
-.rz-card .rzsw{width:11px;height:11px;border-radius:3px;flex:none;}
-.rz-card .rzsub{font-size:.74rem;color:var(--text-muted);margin-top:2px;}
-
-.caveat{
-  margin-top:28px;font-size:.8rem;color:var(--text-muted);
-  background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius-md);padding:15px 17px;line-height:1.65;
-}
-.caveat strong{color:var(--text);}
-
-footer.pagefoot{
-  text-align:center;font-size:.78rem;color:var(--text-muted);
-  padding:30px 16px 14px;
-}
-
-.loading-note{
-  text-align:center;color:var(--text-muted);font-size:.9rem;padding:14px;
-}
+/* tabs */
+.tabs{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--barh,128px));z-index:4;display:flex;gap:4px;padding:4px;background:var(--surface2);border:1px solid var(--line);border-radius:16px}
+.tabs button{flex:1;font:inherit;font-weight:600;font-size:.93rem;border:0;border-radius:12px;padding:9px 8px;background:transparent;color:var(--muted);cursor:pointer;transition:background .15s,color .15s}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--accent);box-shadow:var(--shadow)}
+.panelwrap{display:flex;flex-direction:column;gap:26px}
+.when{font-size:.72rem;font-weight:600;letter-spacing:.04em;color:var(--muted);text-transform:none}
+.yrs{display:grid;grid-template-columns:5.2em 1fr 4.6em;margin:2px 0;gap:7px 10px;align-items:center;font-size:.86rem;font-variant-numeric:tabular-nums}
+.yrs .track{height:9px;background:var(--surface2);border-radius:5px;overflow:hidden}
+.yrs .track span{display:block;height:100%;border-radius:5px}
+.yrs b{font-weight:600;text-align:right}
+.note{font-size:.78rem;color:var(--muted)}
+.kv2{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.9rem;background:var(--surface2);border-radius:12px;padding:10px 14px}
+.kv2 b{font-weight:600}
+.intro{color:var(--muted)}
+.ensoplace{font-family:var(--fd);font-size:1.2rem;font-weight:600;line-height:1.4}
+.steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:0;position:relative}
+.steps>li{display:grid;grid-template-columns:22px 1fr;gap:12px;padding-bottom:16px;position:relative}
+.steps>li::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--surface);border:3px solid var(--accent);margin-top:6px;z-index:1}
+.steps>li:not(:last-child)::after{content:"";position:absolute;left:5px;top:20px;bottom:0;width:2px;background:var(--line2)}
+.steps>li>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.steps span{font-family:var(--fd);font-weight:600}
+.steps ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:3px;color:var(--ink);font-size:.95rem}
+footer{font-size:.78rem;color:var(--faint);display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:16px}
+@media (prefers-reduced-motion:no-preference){.panelwrap>section{animation:in .3s ease-out both}@keyframes in{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}}
 </style>
 </head>
 <body>
-
-<header class="banner">
-  <div class="wrap">
-    <svg class="banner-icon" viewBox="0 0 64 64" aria-hidden="true">
-      <path d="M32 6C20 6 12 20 12 34c0 13.8 9 24 20 24s20-10.2 20-24C52 20 44 6 32 6z" fill="#fdfbf3" opacity="0.95"/>
-      <path d="M32 10C22.5 10 16 22 16 34c0 11.6 7.2 20 16 20s16-8.4 16-20c0-12-6.5-24-16-24z" fill="#9ccf9f"/>
-      <circle cx="32" cy="36" r="11" fill="#8a5a34"/>
-      <circle cx="28" cy="32" r="3" fill="#fdfbf3" opacity="0.35"/>
-    </svg>
-    <div class="banner-titles">
-      <h1>รู้ก่อนปลูก อะโวคาโด</h1>
-      <p>เครื่องมือประเมินความเสี่ยงรายตำบลสำหรับเกษตรกรและผู้สนใจปลูกอะโวคาโดในประเทศไทย</p>
+<div class="top" id="top">
+  <div class="bar">
+    <div class="brand"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M12 16c0-3 0-5 3-7M12 16c-2-1-3-3-2-6"/></svg></span><b>รู้ทันภัย</b><span>เช็กภัยธรรมชาติของแปลงปลูก พร้อมวิธีรับมือ</span></div>
+    <div class="locate">
+      <button class="gps" id="gps" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="8"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>
+        หาพิกัดจาก GPS
+      </button>
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="text" id="q" placeholder="ชื่อตำบล หรือพิกัด เช่น 18.78, 100.77" autocomplete="off" aria-label="ค้นหาตำบลหรือพิกัด">
+        <div class="results" id="results" hidden></div>
+      </div>
     </div>
-    <button class="theme-toggle" id="themeToggle" type="button" aria-label="สลับโหมดมืด/สว่าง" title="สลับโหมดมืด/สว่าง">◐</button>
+    <p class="msg" id="msg" hidden></p>
   </div>
-</header>
-
-<div class="wrap">
-
-  <div class="controls">
-    <div class="search-row">
-      <input type="text" id="searchInput" autocomplete="off" placeholder="พิมพ์ชื่อตำบล อำเภอ หรือจังหวัด... เช่น แม่แตง, ท่างาม, เชียงใหม่">
-      <div class="search-suggest" id="searchSuggest"></div>
-    </div>
-    <button class="locate-btn" id="locateBtn" type="button" disabled title="กำลังเตรียมแผนที่...">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-      <span>ดึงตำแหน่งปัจจุบันจาก GPS</span>
-    </button>
-    <div class="locate-status" id="locateStatus"></div>
-    <button class="browse-toggle" id="browseToggle" type="button">หรือเรียกดูตามเขตการปกครอง</button>
-    <div class="browse-panel" id="browsePanel">
-      <select id="selPro"><option value="">— จังหวัด —</option></select>
-      <select id="selAmp" disabled><option value="">— อำเภอ/เขต —</option></select>
-      <select id="selTam" disabled><option value="">— ตำบล/แขวง —</option></select>
-    </div>
-
-    <div class="colorby-row">
-      <label for="colorBy">แสดงสีตาม:</label>
-      <select id="colorBy">
-        <option value="overall" selected>ภาพรวม (คะแนนรวม)</option>
-        <option value="rootrot">รากเน่าโคนเน่า</option>
-        <option value="flood">น้ำท่วม / รากขาดอากาศ</option>
-        <option value="drought">ภัยแล้ง</option>
-        <option value="storm">วาตภัย</option>
-        <option value="elevation">ระดับความสูง (ม.)</option>
-        <option value="rainzone">เขตฝน (ระดับ pixel)</option>
-      </select>
-    </div>
-
-    <div class="colorby-row" id="rainzoneBaselineRow" style="display:none">
-      <label for="rainzoneBaseline">ช่วงข้อมูล:</label>
-      <select id="rainzoneBaseline">
-        <option value="25yr" selected>เฉลี่ย 25 ปี (2544-2568)</option>
-        <option value="10yr">เฉลี่ย 10 ปีล่าสุด (2558-2568)</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="map-shell">
-    <div id="map"></div>
-    <div class="legend" id="legend"></div>
-  </div>
-  <p class="map-hint">คลิกที่พื้นที่บนแผนที่เพื่อดูรายละเอียดความเสี่ยงของตำบลนั้น ๆ หรือค้นหา/เลือกจากรายการด้านบน</p>
-
-  <details class="advisory rainzone-compare" id="rainzoneCompareDetails">
-    <summary>เทียบปริมาณฝนรายเดือนของทั้ง 6 เขตฝน (ค่าเฉลี่ย 25 ปี)</summary>
-    <div id="rainzoneCompareBody"><div class="rz-loading">กำลังโหลดข้อมูล...</div></div>
-  </details>
-
-  <div class="report" id="report">
-    <div class="report-empty" id="reportEmpty">เลือกหรือค้นหาตำบลเพื่อดูรายละเอียดความเสี่ยงที่นี่</div>
-  </div>
-
 </div>
 
-<footer class="pagefoot">
-  ข้อมูลเพื่อการศึกษาและวางแผนเบื้องต้น
-</footer>
+<main>
+  <div class="where">
+    <span class="tag" id="example">ตัวอย่าง</span>
+    <h1 id="pname">กำลังโหลด…</h1>
+    <p class="sub" id="psub"></p>
+  </div>
 
-<script defer>
-(function(){
-  "use strict";
+  <div class="tabs" role="tablist" aria-label="หัวข้อ">
+    <button role="tab" id="tb1" aria-selected="true" aria-controls="tabRisk" type="button">ความเสี่ยงในพื้นที่</button>
+    <button role="tab" id="tb2" aria-selected="false" aria-controls="tabEnso" type="button">เตรียมรับเอลนีโญ</button>
+  </div>
 
-  /* ---------------- constants ---------------- */
-  var LEVEL_COLOR = {0:"#4a7c59",1:"#d9a441",2:"#e0793b",3:"#c0392b"};
-  var GRAY = "#b7b0a3";
-  var OVERALL_COLOR = {"เขียว":"#4a7c59","เหลือง":"#d9a441","แดง":"#c0392b"};
-  var LEVEL_TEXT = {0:"ต่ำ",1:"ปานกลาง",2:"สูง",3:"สูงมาก"};
-  var ELEV_BANDS = [
-    {max:200,  color:"#e9dcc3", label:"ต่ำกว่า 200 ม."},
-    {max:500,  color:"#cdb082", label:"200–500 ม."},
-    {max:1000, color:"#a67c52", label:"500–1,000 ม."},
-    {max:Infinity, color:"#6b4226", label:"มากกว่า 1,000 ม."}
+  <div class="panelwrap" id="tabRisk" role="tabpanel" aria-labelledby="tb1">
+
+  <section aria-labelledby="t1">
+    <h2 id="t1">ข้อมูลพื้นที่</h2>
+    <div class="grid" id="area"></div>
+  </section>
+
+  <section aria-labelledby="t2">
+    <div class="shead"><h2 id="t2">ความเสี่ยงภัยในพื้นที่</h2><div class="sum" id="hzsum"></div></div>
+    <div class="hz" id="hz"></div>
+  </section>
+
+  <section aria-labelledby="t3">
+    <h2 id="t3">ฝน 10 ปีล่าสุด (2559–2568)</h2>
+    <div class="panel">
+    <div class="kv" id="rainKv"></div>
+    <ul class="rainlist" id="rainList"></ul>
+    <svg class="chart" id="chart" viewBox="0 0 640 220" role="img" aria-label="ฝนรายเดือน"></svg>
+    <div class="legend"><span><i style="background:var(--accent);border-radius:2px"></i>เฉลี่ย 10 ปีล่าสุด</span><span><i style="background:var(--md);border-radius:2px"></i>เดือนที่ฝนน้อยกว่า 50 มม.</span><span><i style="background:var(--muted);height:2px;width:14px;border-radius:0;vertical-align:middle"></i>เฉลี่ย 30 ปี</span></div>
+    </div>
+    <p class="src">วันเริ่มและสิ้นสุดฤดูฝนประเมินจากฝนราย 5 วัน (CHIRPS) ของแต่ละปี แล้วใช้ค่ากลาง 10 ปี</p>
+  </section>
+
+  </div>
+
+  <div class="panelwrap" id="tabEnso" role="tabpanel" aria-labelledby="tb2" hidden>
+    <section>
+      <h2>ถ้าเกิดเอลนีโญรุนแรง</h2>
+      <p class="ensoplace" id="ensoPlace"></p>
+      <p class="intro" id="ensoIntro"></p>
+      <div class="hz" id="ensoList"></div>
+    </section>
+    <section>
+      <h2 id="stepsT">เตรียมตัวตามช่วงเวลา</h2>
+      <ul class="steps" id="ensoSteps"></ul>
+    </section>
+    <p class="src">ฝน: CHIRPS ช่วงเอลนีโญรุนแรง 3 ครั้งล่าสุด (2540–41, 2558–59, 2566–67) เทียบปีปกติ 2556, 2557, 2560, 2568 · วันร้อนจัด: TerraClimate ปีเดียวกับฝน · อุณหภูมิเฉลี่ยและความแห้งของอากาศ: ERA5-Land เอลนีโญรุนแรง 5 ครั้ง (2525–2567) · ฝนมรสุมตะวันออกเฉียงเหนือ: ค่าเฉลี่ยปีเอลนีโญทุกระดับ 2524–2568 · ประกาศภัยแล้ง: ปภ. ข้อมูลนี้เป็นสิ่งที่เคยเกิดในอดีต ไม่ใช่การพยากรณ์ เอลนีโญแต่ละครั้งแรงไม่เท่ากัน</p>
+  </div>
+
+  <footer>
+    <p>ข้อมูลเป็นภาพรวมระดับตำบล แปลงจริงอาจต่างไปตามตำแหน่ง เช่น ที่ลุ่มหรือที่ดอน</p>
+    <p>ที่มา: ฝน CHIRPS v2.0 · แล้งและน้ำท่วมซ้ำซาก กรมพัฒนาที่ดิน · ผลตรวจดิน กรมพัฒนาที่ดิน (CC BY) · ความสูงและความลาดชัน Copernicus DEM · อุณหภูมิ TerraClimate · วาตภัย บันทึกของ ปภ. จากแผนที่ภัยพิบัติ กรมการเปลี่ยนแปลงสภาพภูมิอากาศและสิ่งแวดล้อม · ช่วงเอลนีโญ ERA5-Land และ CHIRPS</p>
+  </footer>
+</main>
+
+<script>
+const MON=["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+const ADV={
+ drought:["เตรียมแหล่งน้ำสำรอง (สระหรือบ่อ) ให้พอใช้ตลอดฤดูแล้ง","ใช้ระบบน้ำหยดหรือมินิสปริงเกลอร์ ให้น้ำตรงทรงพุ่ม","คลุมโคนต้นด้วยฟางหรือเศษพืช รักษาความชื้นในดิน","ไม่บำรุงให้แตกใบอ่อนก่อนเข้าแล้ง เพื่อลดการคายน้ำ","ถ้าน้ำไม่พอ ให้ต้นปลูกใหม่และต้นที่ติดผลได้น้ำก่อน"],
+ flood:["ปลูกบนโคกหรือยกร่องให้รากอยู่สูงกว่าระดับน้ำที่เคยขัง","ขุดคูระบายน้ำรอบแปลง และเตรียมเครื่องสูบน้ำ","ไม้ผลไม่ทนน้ำขัง เช่น ทุเรียน อะโวคาโด ไม่ควรปลูกในจุดลุ่มของแปลง","หลังน้ำลด อย่าเพิ่งใส่ปุ๋ยหรือพรวนดิน และเฝ้าระวังโรครากเน่าโคนเน่า","จดระดับน้ำสูงสุดที่เคยท่วมไว้ ใช้กำหนดความสูงของโคกและคันดิน"],
+ rain:["ทำทางระบายน้ำผิวดิน ไม่ให้น้ำไหลบ่าผ่านโคนต้น","ค้ำยันต้นและกิ่งที่มีผลหนักก่อนช่วงฝนหนัก","ช่วงฝนชุกเฝ้าระวังโรคจากเชื้อรา และตัดแต่งทรงพุ่มให้โปร่ง","คลุมดินหรือปลูกพืชคลุมดิน ลดการชะล้างหน้าดิน","วางแผนเก็บเกี่ยวให้เสร็จก่อนช่วงฝนหนักที่สุดของพื้นที่"],
+ storm:["ปลูกไม้กันลมรอบแปลง เช่น ไผ่ สะเดา กระถินณรงค์ ด้านที่ลมแรงพัดเข้า (ลมพายุฤดูร้อนมักมาจากทิศตะวันตกและตะวันตกเฉียงใต้)","ค้ำยันต้นปลูกใหม่และกิ่งที่มีผลหนัก ก่อนเข้าช่วงพายุฤดูร้อน มี.ค.–พ.ค. และพายุจรช่วง ส.ค.–ต.ค.","ตัดแต่งทรงพุ่มให้โปร่งและไม่สูงเกินไป ลดแรงปะทะลม","เมื่อมีประกาศเตือนพายุ เก็บผลที่ใกล้แก่ก่อน และตรวจโรงเรือนหรือตาข่ายพรางแสงให้แน่นหนา","หลังพายุ ตัดกิ่งฉีกขาดให้เรียบ ทาแผลกันเชื้อรา และตั้งต้นที่โยกให้ตรงเร็วที่สุด"],
+ slope:["ปลูกตามแนวระดับหรือทำขั้นบันได และปลูกหญ้าแฝกขวางทางน้ำ","คลุมดินถาวร ไม่เปิดหน้าดินโล่งในฤดูฝน","ทำร่องเบี่ยงน้ำหรือบ่อดักตะกอน ชะลอความเร็วน้ำ","หลีกเลี่ยงการปลูกหรือสร้างที่พักในร่องห้วยและตีนเขาที่ชันมาก","หลังฝนตกหนักติดต่อกัน ถ้าเห็นรอยแยกของดินหรือต้นไม้เอียง ให้ออกจากพื้นที่"],
+ heat:["ให้น้ำสม่ำเสมอช่วงร้อนจัด โดยเฉพาะช่วงออกดอกติดผล","พรางแสงต้นปลูกใหม่ และทาปูนขาวลำต้นด้านรับแดดบ่าย","ปลูกไม้กันลมหรือไม้บังร่มรอบแปลง","ช่วงบ่ายที่ร้อนและแห้ง พ่นหมอกหรือให้น้ำเพิ่มความชื้น","ห่อผลหรือจัดทรงพุ่มไม่ให้ผลโดนแดดจัด ลดผลไหม้"],
+ high:["อากาศเย็นเหมาะกับไม้ผลเขตหนาวและกึ่งร้อนหลายชนิด","ระวังน้ำค้างแข็งในที่ลุ่มหุบเขาช่วง ธ.ค.–ม.ค.","บนที่สูงหน้าดินถูกชะล้างง่าย ควรคลุมดินตลอดปี"],
+ high700:["อากาศเย็นกว่าที่ราบ เลือกพันธุ์ไม้ผลให้เหมาะกับอุณหภูมิ","บนที่สูงหน้าดินถูกชะล้างง่าย ควรคลุมดินตลอดปี"]};
+let D=null,G=null,RX=null,EN=null,CUR=0;
+const $=id=>document.getElementById(id);
+const fmt=(x,d=0)=>x==null?"–":Number(x).toLocaleString("th-TH",{maximumFractionDigits:d,minimumFractionDigits:d});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function msg(t,err){const m=$("msg");m.hidden=!t;m.textContent=t||"";m.classList.toggle("err",!!err)}
+
+async function load(){
+  try{
+    D=await (await fetch("tambon_data.json")).json();
+    RX=D.map(t=>t[8][1]).sort((a,b)=>a-b);
+    fetch("enso_data.json").then(r=>r.json()).then(j=>{EN=j;enso(CUR)}).catch(()=>{});
+    let s="550116"; try{s=localStorage.getItem("farmrisk_last")||s}catch(e){}
+    const i=D.findIndex(t=>t[0]===s); show(i<0?0:i, s==="550116");
+  }catch(e){$("pname").textContent="โหลดข้อมูลไม่สำเร็จ ลองเปิดหน้านี้ใหม่"}
+}
+async function geom(){
+  if(G)return G;
+  const j=await (await fetch("tambon_geom.json")).json();
+  G={b:j.b,g:j.g.map(ps=>ps.map(a=>{const p=[];let x=0,y=0;for(let k=0;k<a.length;k+=2){x+=a[k];y+=a[k+1];p.push([x/1000,y/1000])}return p}))};
+  return G;
+}
+function inRing(x,y,p){let c=false;for(let i=0,j=p.length-1;i<p.length;j=i++){const[xi,yi]=p[i],[xj,yj]=p[j];if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))c=!c}return c}
+async function locate(lon,lat,how){
+  if(!(lat>5&&lat<21&&lon>97&&lon<106)){msg("พิกัดนี้อยู่นอกประเทศไทย",true);return}
+  msg("กำลังหาตำบล…");
+  const g=await geom();let hit=-1;
+  for(let i=0;i<g.b.length&&hit<0;i++){const b=g.b[i];if(lon<b[0]||lon>b[2]||lat<b[1]||lat>b[3])continue;if(g.g[i].some(r=>inRing(lon,lat,r)))hit=i}
+  let near=false;
+  if(hit<0){let best=1e9;g.b.forEach((b,i)=>{const d=((b[0]+b[2])/2-lon)**2+((b[1]+b[3])/2-lat)**2;if(d<best){best=d;hit=i}});near=true}
+  show(hit,false);
+  msg(`${how} ${lat.toFixed(5)}, ${lon.toFixed(5)}${near?" (ตำบลที่ใกล้ที่สุด)":""} · ถ้าตำบลไม่ถูก พิมพ์ชื่อตำบลแทนได้`);
+}
+
+function show(i,ex){
+  const t=D[i];if(!t)return;
+  try{if(!ex)localStorage.setItem("farmrisk_last",t[0])}catch(e){}
+  $("example").hidden=!ex;
+  $("pname").textContent="ต."+t[1];
+  $("psub").textContent=`อ.${t[2]} จ.${t[3]}`;
+  CUR=i;area(t);hazards(t);rain(t);if(EN)enso(i);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function cell(label,val,note){return `<div class="cell"><span>${label}</span><b>${val??"–"}</b>${note?`<em>${note}</em>`:""}</div>`}
+function area(t){
+  const [s15,s25,em,ex]=t[9], x=t[11], a10=t[4].reduce((s,v)=>s+v,0);
+  let h="";
+  h+=cell("พื้นที่ตำบล",`${fmt(x[0],1)} ตร.กม.`,`${fmt(x[0]*625)} ไร่`);
+  h+=cell("ความสูงเฉลี่ย",`${fmt(em)} ม.`,`สูงสุด ${fmt(ex)} ม.`);
+  h+=cell("ลักษณะพื้นที่",x[1]||"–",`ลาดชันเกิน 15° ${fmt(s15,1)}%`);
+  h+=cell("การระบายน้ำของดิน",x[2]||"ไม่มีข้อมูล","กลุ่มชุดดินเด่นของตำบล");
+  h+=cell("เนื้อดิน",x[3]||"–","ภาพรวมของจังหวัด");
+  h+=cell("ฝนต่อปี",`${fmt(a10)} มม.`,"เฉลี่ย 10 ปีล่าสุด");
+  $("area").innerHTML=h;
+}
+const ICO={sun:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>`,crack:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"/><path d="M5 20l3-4 2 2 3-5 2 3 2-2 2 6"/><circle cx="17" cy="6" r="3"/></svg>`,wave:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15c2 0 2-2 4.5-2S10 15 12 15s2-2 4.5-2S19 15 21 15"/><path d="M3 19c2 0 2-2 4.5-2S10 19 12 19s2-2 4.5-2S19 19 21 19"/><path d="M12 3v7M9 7l3 3 3-3"/></svg>`,wind:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h16a3 3 0 1 1-3 3"/><path d="M3 16h7"/></svg>`,rain:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 15a5 5 0 1 1 1.6-9.7A6 6 0 0 1 20 9a4 4 0 0 1-2 6"/><path d="M8 18l-1 3M12 17l-1 4M16 18l-1 3"/></svg>`,slope:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20L10 7l4 6 2-3 5 10z"/><path d="M8 20l3-3"/></svg>`,therm:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 14.8V4a2 2 0 0 0-4 0v10.8a4 4 0 1 0 4 0z"/><path d="M12 9v7"/></svg>`,peak:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20l6-10 4 6 3-4 5 8z"/><path d="M8 12l1-2 1.5 2.5"/></svg>`,drop:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M4 4l16 16"/></svg>`,cloudoff:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17a5 5 0 1 1 1.6-9.7A6 6 0 0 1 20 11a4 4 0 0 1-3 6z"/><path d="M3 3l18 18"/></svg>`,cal:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8 15l2.5 2.5L16 13"/></svg>`,alert:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v4M12 17.5v.5"/></svg>`};
+const T2I=[["แล้ง","crack"],["น้ำท่วม","wave"],["วาตภัย","wind"],["มรสุม","rain"],["ฝนตกหนัก","rain"],["ดินถล่ม","slope"],["ร้อน","therm"],["พื้นที่สูง","peak"],["แห้งจัด","drop"],["ฝนช่วงต้นปี","cloudoff"],["ฝนฤดูฝน","cloudoff"],["ฝนมาช้า","cal"],["เคยเกิด","alert"]];
+const icon=t=>ICO[(T2I.find(([k])=>t.includes(k))||[0,"sun"])[1]];
+function item(s,title,state,body,src,adv){
+  return `<div class="item s${s}"><div class="ihead"><span class="ico">${icon(title)}</span><h3>${title}</h3><span class="state">${state}</span></div>${body}${src?`<p class="src">${src}</p>`:""}`+
+  (adv?`<details${s===3?" open":""}><summary>วิธีรับมือ</summary><ul>${(Array.isArray(adv)?adv:ADV[adv]).map(a=>`<li>${esc(a)}</li>`).join("")}</ul></details>`:"")+`</div>`;
+}
+function ldd(a,kind){
+  const[h,m,l,yr,dig]=a,tot=(h||0)+(m||0)+(l||0),fq=(h||0)+(m||0);
+  const L=kind==="drought"?["6 ครั้งขึ้นไป","4–5 ครั้ง","ไม่เกิน 3 ครั้ง"]:["8–10 ครั้ง","4–7 ครั้ง","ไม่เกิน 3 ครั้ง"];
+  const src=`กรมพัฒนาที่ดิน ปี ${yr||"–"}${dig?" · ประมาณจากรูปแผนที่":""}`;
+  const name=kind==="drought"?"แล้งซ้ำซาก":"น้ำท่วมซ้ำซาก";
+  if(tot<1)return item(1,name,"ไม่พบ",`<p>ไม่พบพื้นที่${name}ในตำบลนี้</p>`,src,null);
+  const s=fq>=10?3:tot>=5?2:1;
+  const body=`<p><b>${fmt(tot,1)}%</b> ของพื้นที่ตำบลเป็นพื้นที่${name}</p><div class="meter"><span style="width:${Math.min(100,h||0)}%;background:var(--hi)"></span><span style="width:${Math.min(100,m||0)}%;background:var(--md)"></span><span style="width:${Math.min(100,l||0)}%;background:var(--lo)"></span></div>`+
+   `<p class="src">ในรอบ 10 ปี เกิด ${L[0]} ${fmt(h,1)}% · ${L[1]} ${fmt(m,1)}% · ${L[2]} ${fmt(l,1)}% ของตำบล</p>`;
+  return item(s,name,s===3?"เกิดบ่อย":s===2?"เกิดบางส่วน":"เกิดเล็กน้อย",body,src,s>=2?kind:null);
+}
+function hazards(t){
+  let h=ldd(t[6],"drought")+ldd(t[7],"flood");
+  if(t[13]){const[sl,se,sy,slast]=t[13],st=sl||1;
+    h+=item(st,"วาตภัย (ลมพายุ)",sl===3?"เกิดบ่อยมาก":sl===2?"เกิดบ่อย":sl===1?"เคยเกิด":"ไม่มีบันทึก",
+      sl?`<p>ปี 2561–2567 มีรายงานวาตภัยในตำบลนี้ <b>${sy} ใน 7 ปี</b> รวม <b>${fmt(se)} ครั้ง</b>${slast?` ล่าสุดปี ${slast}`:""}</p>`:`<p>ไม่มีบันทึกวาตภัยของ ปภ. ในตำบลนี้ช่วง 2559–2567</p>`,
+      "บันทึกเหตุการณ์ของ ปภ. ผ่านแผนที่ภัยพิบัติ กรมการเปลี่ยนแปลงสภาพภูมิอากาศฯ (นับตามรายงาน ตำบลใหญ่มีหลายหมู่บ้านจึงมีจำนวนครั้งมากกว่า)",sl>=2?"storm":null)}
+  const[rm,r9]=t[8],rank=Math.round(100*RX.filter(v=>v<r9).length/RX.length),rs=r9>=185?3:r9>=147?2:1;
+  h+=item(rs,"ฝนตกหนักติดต่อกัน",rs===3?"หนักมาก":rs===2?"ปานกลาง":"ไม่หนัก",
+    `<p>ฝนหนักที่สุด 5 วันติดต่อกันในปีปกติ <b>${fmt(rm)} มม.</b> ในปีที่ฝนหนัก (ราว 1 ใน 10 ปี) <b>${fmt(r9)} มม.</b></p>`,`มากกว่า ${rank}% ของตำบลทั่วประเทศ · CHIRPS 2539–2568`,rs>1?"rain":null);
+  const[s15,s25,em]=t[9],ss=s15>=30?3:s15>=10?2:1;
+  h+=item(ss,"ดินถล่มและหน้าดินชะล้าง",ss===3?"ลาดชันมาก":ss===2?"มีที่ลาดชัน":"ค่อนข้างราบ",
+    `<p>พื้นที่ลาดชันเกิน 15° <b>${fmt(s15,1)}%</b> ของตำบล (เกิน 25° ${fmt(s25,1)}%)</p>`,"Copernicus DEM 90 ม. ในพื้นที่ภูเขาจะชันกว่าค่านี้",ss>1?"slope":null);
+  const[hm,n35,tr,d10,dmx,dmy,mm]=t[10],hs=d10>=75?3:d10>=30?2:1;
+  const hotM=mm.map((v,k)=>v>=3?k:-1).filter(k=>k>=0), mx=Math.max(...mm,1);
+  const span=hotM.length?(hotM.length===1?MON[hotM[0]]:`${MON[hotM[0]]}–${MON[hotM[hotM.length-1]]}`):null;
+  const strip=`<div class="mstrip">${mm.map((v,k)=>`<div><i style="height:${Math.max(2,56*v/mx)}px;background:${v>=10?'var(--hi)':v>=3?'var(--md)':'var(--line2)'}"></i><span>${MON[k]}</span></div>`).join("")}</div>`;
+  h+=item(hs,"อากาศร้อนจัด",hs===3?"ร้อนจัดบ่อย":hs===2?"ร้อนจัดบางช่วง":"ร้อนจัดน้อย",
+    `<p>วันที่อุณหภูมิสูงถึง 35°C ประมาณ <b>${fmt(d10)} วันต่อปี</b> (เฉลี่ย 10 ปีล่าสุด)${span?` ส่วนใหญ่ช่วง <b>${span}</b>`:""} ปีที่ร้อนที่สุดในรอบ 29 ปีคือ ${dmy} ราว ${fmt(dmx)} วัน</p>${strip}`,
+    `ประมาณจากอุณหภูมิรายเดือน TerraClimate ปรับเทียบกับสถานีตรวจอากาศ ค่าจริงอาจต่างได้ราว ±10 วัน · ${tr>=0?"ร้อนขึ้น":"เย็นลง"} ${fmt(Math.abs(tr),2)}°C ต่อ 10 ปี`,hs>1?"heat":null);
+  if(em>=700)h+=item(1,"พื้นที่สูง","อากาศเย็น",`<p>ความสูงเฉลี่ยของตำบล ${fmt(em)} ม.${em>=1000?" อากาศเย็นถึงหนาวจัดบางช่วง":""}</p>`,"",em>=1000?"high":"high700");
+  $("hz").innerHTML=h;
+  const c3=(h.match(/class="item s3"/g)||[]).length,c2=(h.match(/class="item s2"/g)||[]).length;
+  $("hzsum").innerHTML=(c3?`<span class="chip c3"><i></i>สูง ${c3}</span>`:"")+(c2?`<span class="chip c2"><i></i>ปานกลาง ${c2}</span>`:"")+(!c3&&!c2?`<span class="chip c1"><i></i>เสี่ยงน้อย</span>`:"");
+}
+const CUM=[0,31,59,90,120,151,181,212,243,273,304,334,365];
+function when(doy){doy=((Math.round(doy)%365)+365)%365;let m=0;while(doy>=CUM[m+1])m++;const d=doy-CUM[m]+1;return (d<=10?"ต้น ":d<=20?"กลาง ":"ปลาย ")+MON[m]}
+function rain(t){
+  const m10=t[4],m30=t[5],[on,osd,ce,csd,amin,amax,ymin,ymax]=t[12];
+  const a10=m10.reduce((s,v)=>s+v,0),a30=m30.reduce((s,v)=>s+v,0),df=Math.round(100*(a10/a30-1));
+  const len=((ce-on)%365+365)%365, lenM=Math.round(len/30.4);
+  const wet=m10.indexOf(Math.max(...m10)), dryM=m10.map((v,k)=>v<50?MON[k]:null).filter(Boolean);
+  // two peaks: look for a dip inside the rainy season
+  const order=[...Array(12).keys()].map(k=>(Math.floor(on/30.4)+k)%12).slice(0,Math.max(3,lenM));
+  let dip=null;
+  for(let i=1;i<order.length-1;i++){const k=order[i];const before=Math.max(...order.slice(0,i).map(j=>m10[j])),after=Math.max(...order.slice(i+1).map(j=>m10[j]));
+    if(m10[k]<0.8*Math.min(before,after)&&(dip==null||m10[k]<m10[dip]))dip=k}
+  $("rainKv").innerHTML=`<div><b>${fmt(a10)}</b><span>มม./ปี (${df>=0?"+":""}${df}% จาก 30 ปี)</span></div><div><b>${dryM.length?lenM:"เกือบทั้งปี"}</b><span>${dryM.length?"เดือน ความยาวฤดูฝน":"มีฝนทุกเดือน"}</span></div><div><b>${dryM.length}</b><span>เดือนที่ฝน &lt; 50 มม.</span></div>`;
+  const rows=[
+   [dryM.length?"ฝนเริ่ม":"ฝนหนักเริ่ม",`${when(on)} ${osd<=12?"ค่อนข้างตรงเวลาทุกปี":osd<=22?`บางปีเร็วหรือช้ากว่านี้ราว ${Math.round(osd/7)} สัปดาห์`:`ไม่แน่นอน บางปีคลาดเคลื่อนได้ราว ${Math.round(osd/7)} สัปดาห์`}`],
+   [dryM.length?"ฝนหมด":"ฝนหนักหมด",`${when(ce)} ${csd<=12?"ค่อนข้างตรงเวลา":`บางปีเร็วหรือช้ากว่านี้ราว ${Math.round(csd/7)} สัปดาห์`}`],
+   ["ช่วงฝนชุก",`มากที่สุดเดือน ${MON[wet]} (${fmt(m10[wet])} มม.)`+(dip!=null?` · ฝนมีสองช่วง มักทิ้งช่วงเดือน ${MON[dip]} (${fmt(m10[dip])} มม.)`:" · ฝนช่วงเดียวต่อเนื่อง")],
+   ["ช่วงแล้ง",dryM.length?`${dryM.length} เดือน ฝนน้อยกว่า 50 มม. (${dryM.join(" ")}) ต้องมีน้ำให้พืช`:"ไม่มีเดือนที่ฝนน้อยกว่า 50 มม."],
+   ["ความผันผวน",`ใน 10 ปี ฝนน้อยสุด ${fmt(amin)} มม. (${ymin+543}) มากสุด ${fmt(amax)} มม. (${ymax+543})`]
   ];
-  var COLORBY_LABEL = {
-    overall:"ภาพรวม (คะแนนรวม)",
-    rootrot:"รากเน่าโคนเน่า",
-    flood:"น้ำท่วม / รากขาดอากาศ",
-    drought:"ภัยแล้ง",
-    storm:"วาตภัย",
-    elevation:"ระดับความสูง (ม.)",
-    rainzone:"เขตฝน (ระดับ pixel)"
-  };
-  var RAINZONE_CELL_HALF = 0.025; // half-width of the 0.05-degree rainfall-zone grid cell, in degrees
-
-  /* ---------------- state ---------------- */
-  var state = {
-    tambonData: [],      // array of records
-    byCode: {},           // code -> record
-    geomByCode: {},        // code -> {type,coords}
-    provinceGeom: [],
-    provinceInfo: {},
-    colorBy: "overall",
-    selectedCode: null,
-    map: null,
-    tambonLayer: null,
-    provinceLayer: null,
-    layersByCode: {},
-    provincesIndex: {},  // pro -> {amp -> [records]}
-    userMarker: null,
-    userAccuracyCircle: null,
-    rainzoneBaseline: "25yr",
-    rainzonePixels: null,   // lazy-loaded: array of [lon,lat,zone25,zone10]
-    rainzoneLegend: null,   // lazy-loaded: {"25yr":{zoneId:{...}}, "10yr":{...}}
-    rainzoneLoading: null,  // in-flight load promise
-    rainzoneLayer: null     // Leaflet layerGroup of pixel rectangles
-  };
-  var locateStatusTimer = null;
-
-  /* ---------------- utils ---------------- */
-  function esc(s){
-    if (s === null || s === undefined) return "";
-    return String(s).replace(/[&<>"']/g, function(c){
-      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
-    });
-  }
-  function fmtNum(n){
-    if (n === null || n === undefined) return "ไม่มีข้อมูล";
-    return Number(n).toLocaleString("th-TH");
-  }
-  function debounce(fn, ms){
-    var t;
-    return function(){
-      var args = arguments, ctx = this;
-      clearTimeout(t);
-      t = setTimeout(function(){ fn.apply(ctx, args); }, ms);
-    };
-  }
-
-  /* ---------------- geometry: bbox + point-in-polygon ---------------- */
-  function computeBBox(multiPolyCoords){
-    var minLng=Infinity, minLat=Infinity, maxLng=-Infinity, maxLat=-Infinity;
-    for (var p=0;p<multiPolyCoords.length;p++){
-      var poly = multiPolyCoords[p];
-      for (var r=0;r<poly.length;r++){
-        var ring = poly[r];
-        for (var i=0;i<ring.length;i++){
-          var lng = ring[i][0], lat = ring[i][1];
-          if (lng < minLng) minLng = lng;
-          if (lng > maxLng) maxLng = lng;
-          if (lat < minLat) minLat = lat;
-          if (lat > maxLat) maxLat = lat;
-        }
-      }
-    }
-    return [minLng, minLat, maxLng, maxLat];
-  }
-  function pointInRing(lng, lat, ring){
-    var inside = false;
-    for (var i=0, j=ring.length-1; i<ring.length; j=i++){
-      var xi=ring[i][0], yi=ring[i][1], xj=ring[j][0], yj=ring[j][1];
-      var intersect = ((yi>lat)!==(yj>lat)) && (lng < (xj-xi)*(lat-yi)/(yj-yi)+xi);
-      if (intersect) inside = !inside;
-    }
-    return inside;
-  }
-  function pointInPolygon(lng, lat, polygon){
-    if (!polygon.length || !pointInRing(lng, lat, polygon[0])) return false;
-    for (var k=1;k<polygon.length;k++){
-      if (pointInRing(lng, lat, polygon[k])) return false; // inside a hole
-    }
-    return true;
-  }
-  function pointInMultiPolygon(lng, lat, multiPolyCoords){
-    for (var i=0;i<multiPolyCoords.length;i++){
-      if (pointInPolygon(lng, lat, multiPolyCoords[i])) return true;
-    }
-    return false;
-  }
-  function findTambonAtLatLng(lat, lng){
-    var codes = Object.keys(state.geomByCode);
-    for (var i=0;i<codes.length;i++){
-      var code = codes[i];
-      var g = state.geomByCode[code];
-      var b = g._bbox;
-      if (!b || lng < b[0] || lng > b[2] || lat < b[1] || lat > b[3]) continue;
-      if (pointInMultiPolygon(lng, lat, g.coords)) return code;
-    }
-    return null;
-  }
-
-  /* ---------------- theme ---------------- */
-  function initTheme(){
-    var saved = null;
-    try { saved = localStorage.getItem("avo-theme"); } catch(e){}
-    if (saved === "dark" || saved === "light"){
-      document.documentElement.setAttribute("data-theme", saved);
-    }
-    document.getElementById("themeToggle").addEventListener("click", function(){
-      var cur = document.documentElement.getAttribute("data-theme");
-      var isDark;
-      if (cur === "dark") isDark = true;
-      else if (cur === "light") isDark = false;
-      else isDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-      var next = isDark ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", next);
-      try { localStorage.setItem("avo-theme", next); } catch(e){}
-    });
-  }
-
-  /* ---------------- data loading ---------------- */
-  function loadAll(){
-    return Promise.all([
-      fetch("tambon_data.json").then(function(r){ return r.json(); }),
-      fetch("tambon_geom.json").then(function(r){ return r.json(); }),
-      fetch("province_geom.json").then(function(r){ return r.json(); }),
-      fetch("province_info.json").then(function(r){ return r.json(); }),
-      fetch("rain_zones_legend.json").then(function(r){ return r.json(); })
-    ]).then(function(results){
-      state.tambonData = results[0];
-      var geom = results[1];
-      state.provinceGeom = results[2];
-      state.provinceInfo = results[3];
-      state.rainzoneLegend = results[4]; // small (~2KB): loaded eagerly, unlike the pixel grid below
-
-      state.tambonData.forEach(function(d){ state.byCode[d.code] = d; });
-      geom.forEach(function(g){
-        g._bbox = computeBBox(g.coords);
-        state.geomByCode[g.id] = g;
-      });
-
-      var idx = {};
-      state.tambonData.forEach(function(d){
-        if (!idx[d.pro]) idx[d.pro] = {};
-        if (!idx[d.pro][d.amp]) idx[d.pro][d.amp] = [];
-        idx[d.pro][d.amp].push(d);
-      });
-      state.provincesIndex = idx;
-    });
-  }
-
-  // Lazy-loads the pixel-level rain-zone grid (only needed when the user actually
-  // switches to the "rainzone" colorBy mode or opens the zone-comparison panel), so
-  // the normal page load doesn't pay for ~800KB most visits never use. The (much
-  // smaller) legend is already loaded by loadAll, so this resolves immediately after
-  // the first call.
-  function loadRainZoneData(){
-    if (state.rainzonePixels) return Promise.resolve();
-    if (state.rainzoneLoading) return state.rainzoneLoading;
-    state.rainzoneLoading = fetch("rain_zones.json").then(function(r){ return r.json(); }).then(function(pixels){
-      state.rainzonePixels = pixels;
-    });
-    return state.rainzoneLoading;
-  }
-
-  /* ---------------- colors ---------------- */
-  function colorForRecord(d, mode){
-    if (!d) return GRAY;
-    switch(mode){
-      case "overall":
-        return OVERALL_COLOR[d.overall_color] || GRAY;
-      case "rootrot":
-        return d.rootrot_level === null || d.rootrot_level === undefined ? GRAY : LEVEL_COLOR[d.rootrot_level];
-      case "flood":
-        return d.flood_level === null || d.flood_level === undefined ? GRAY : LEVEL_COLOR[d.flood_level];
-      case "drought":
-        return d.drought_level === null || d.drought_level === undefined ? GRAY : LEVEL_COLOR[d.drought_level];
-      case "storm":
-        return d.storm_level === null || d.storm_level === undefined ? GRAY : LEVEL_COLOR[d.storm_level];
-      case "elevation":
-        if (d.elevation_m === null || d.elevation_m === undefined) return GRAY;
-        for (var i=0;i<ELEV_BANDS.length;i++){
-          if (d.elevation_m < ELEV_BANDS[i].max) return ELEV_BANDS[i].color;
-        }
-        return GRAY;
-      default:
-        return GRAY;
-    }
-  }
-
-  /* ---------------- legend ---------------- */
-  function renderLegend(){
-    var el = document.getElementById("legend");
-    var mode = state.colorBy;
-    var rows = [];
-    if (mode === "overall"){
-      rows = [
-        ["#4a7c59","เขียว — ความเสี่ยงต่ำ-ปานกลาง"],
-        ["#d9a441","เหลือง — ต้องจัดการความเสี่ยงเฉพาะจุด"],
-        ["#c0392b","แดง — ความเสี่ยงสูง"],
-        [GRAY,"ไม่มีข้อมูล"]
-      ];
-    } else if (mode === "elevation"){
-      rows = ELEV_BANDS.map(function(b){ return [b.color, b.label]; });
-    } else if (mode === "rainzone"){
-      var rzLegend = state.rainzoneLegend && state.rainzoneLegend[state.rainzoneBaseline];
-      if (!rzLegend){
-        el.innerHTML = "<h4>" + esc(COLORBY_LABEL[mode]) + "</h4><div class=\"row\"><span>กำลังโหลดข้อมูล...</span></div>";
-        return;
-      }
-      rows = Object.keys(rzLegend).sort(function(a,b){ return Number(a)-Number(b); }).map(function(zid){
-        var z = rzLegend[zid];
-        return [z.color, "โซน " + zid + " — ฝนชุกสุดเดือน " + z.peak_month + " (เฉลี่ย " + fmtNum(z.annual_mm) + " มม./ปี)"];
-      });
-    } else {
-      rows = [
-        [LEVEL_COLOR[0], "ต่ำ"],
-        [LEVEL_COLOR[1], "ปานกลาง"],
-        [LEVEL_COLOR[2], "สูง"],
-        [LEVEL_COLOR[3], "สูงมาก"],
-        [GRAY, "ไม่มีข้อมูล"]
-      ];
-    }
-    var html = "<h4>" + esc(COLORBY_LABEL[mode]) + "</h4>";
-    rows.forEach(function(r){
-      html += '<div class="row"><span class="sw" style="background:' + r[0] + '"></span><span>' + esc(r[1]) + "</span></div>";
-    });
-    el.innerHTML = html;
-  }
-
-  /* ---------------- map ---------------- */
-  function featureFor(rec){
-    var g = state.geomByCode[rec.code];
-    if (!g) return null;
-    return {
-      type:"Feature",
-      properties:{ code: rec.code },
-      geometry:{ type: g.type, coordinates: g.coords }
-    };
-  }
-
-  function styleFor(feature){
-    var d = state.byCode[feature.properties.code];
-    var selected = state.selectedCode === feature.properties.code;
-    return {
-      fillColor: colorForRecord(d, state.colorBy),
-      fillOpacity: selected ? 0.92 : 0.75,
-      color: selected ? "#2c4f37" : "rgba(60,50,30,0.35)",
-      weight: selected ? 2.5 : 0.4
-    };
-  }
-
-  function initMap(){
-    var map = L.map("map", {
-      zoomControl: true,
-      attributionControl: false,
-      minZoom: 5,
-      maxZoom: 12
-    });
-    state.map = map;
-
-    var provinceFeatures = state.provinceGeom.map(function(p){
-      return { type:"Feature", properties:{ name: p.name }, geometry:{ type: p.type, coordinates: p.coords } };
-    });
-    state.provinceLayer = L.geoJSON(provinceFeatures, {
-      style: function(){ return { fillOpacity:0, color:"rgba(60,50,30,0.55)", weight:1 }; },
-      interactive: false
-    }).addTo(map);
-
-    var tambonFeatures = [];
-    state.tambonData.forEach(function(rec){
-      var f = featureFor(rec);
-      if (f) tambonFeatures.push(f);
-    });
-
-    state.tambonLayer = L.geoJSON(tambonFeatures, {
-      style: styleFor,
-      onEachFeature: function(feature, layer){
-        var code = feature.properties.code;
-        state.layersByCode[code] = layer;
-        var rec = state.byCode[code];
-        if (rec) layer.bindTooltip(rec.name, {sticky:true, direction:"top"});
-        layer.on("click", function(){
-          selectTambon(code, false);
-        });
-        layer.on("mouseover", function(){ layer.setStyle({weight: state.selectedCode===code?2.5:1.4}); });
-        layer.on("mouseout", function(){ layer.setStyle(styleFor(feature)); });
-      }
-    }).addTo(map);
-
-    var b = state.tambonLayer.getBounds();
-    if (b.isValid()) map.fitBounds(b, {padding:[10,10]});
-    else map.setView([13.7, 100.5], 6);
-
-    L.control.attribution({position:"bottomleft", prefix:false}).addTo(map);
-  }
-
-  // Builds the pixel-level rain-zone map layer from state.rainzonePixels (lazy-loaded
-  // by loadRainZoneData). Rectangles are non-interactive and drawn on a canvas
-  // renderer -- with ~35,900 cells, per-shape DOM/tooltip overhead (the approach used
-  // for the ~7,367 tambon polygons) would be far too slow, and pixel-level hover
-  // detail isn't needed since the per-tambon report card already shows each tambon's
-  // zone. Rebuilt whenever the baseline (25yr/10yr) toggle changes.
-  function buildRainZoneLayer(){
-    if (state.rainzoneLayer){
-      state.map.removeLayer(state.rainzoneLayer);
-      state.rainzoneLayer = null;
-    }
-    var renderer = L.canvas({ padding: 0.4 });
-    var group = L.layerGroup();
-    var baseline = state.rainzoneBaseline;
-    var zoneIdx = baseline === "25yr" ? 2 : 3; // [lon,lat,zone25,zone10]
-    var legend = state.rainzoneLegend[baseline];
-    state.rainzonePixels.forEach(function(p){
-      var lon = p[0], lat = p[1], zone = p[zoneIdx];
-      var info = legend[zone];
-      var color = info ? info.color : GRAY;
-      var bounds = [
-        [lat - RAINZONE_CELL_HALF, lon - RAINZONE_CELL_HALF],
-        [lat + RAINZONE_CELL_HALF, lon + RAINZONE_CELL_HALF]
-      ];
-      group.addLayer(L.rectangle(bounds, {
-        renderer: renderer,
-        interactive: false,
-        stroke: false,
-        fillColor: color,
-        fillOpacity: 0.85
-      }));
-    });
-    state.rainzoneLayer = group;
-  }
-
-  // Switches the visible map layer between the tambon-polygon layer (all colorBy
-  // modes except rainzone) and the pixel-level rain-zone layer, lazy-loading and
-  // building the latter on first use.
-  function updateMapMode(){
-    if (!state.map) return;
-    if (state.colorBy === "rainzone"){
-      if (state.tambonLayer && state.map.hasLayer(state.tambonLayer)) state.map.removeLayer(state.tambonLayer);
-      loadRainZoneData().then(function(){
-        if (state.colorBy !== "rainzone") return; // user switched away while loading
-        buildRainZoneLayer();
-        state.rainzoneLayer.addTo(state.map);
-        renderLegend();
-      });
-    } else {
-      if (state.rainzoneLayer && state.map.hasLayer(state.rainzoneLayer)) state.map.removeLayer(state.rainzoneLayer);
-      if (state.tambonLayer && !state.map.hasLayer(state.tambonLayer)) state.tambonLayer.addTo(state.map);
-    }
-  }
-
-  function recolorAll(){
-    if (!state.map) return;
-    updateMapMode();
-    if (state.colorBy !== "rainzone" && state.tambonLayer){
-      state.tambonLayer.eachLayer(function(layer){
-        layer.setStyle(styleFor(layer.feature));
-      });
-    }
-    renderLegend();
-  }
-
-  /* ---------------- locate (GPS) ---------------- */
-  // Plain button next to the search box (rather than a Leaflet map control).
-  // Disabled until the map has finished initializing (initLocateButton /
-  // the enable call in boot() below) so a click can't race data/map load.
-  function initLocateButton(){
-    var btn = document.getElementById("locateBtn");
-    btn.addEventListener("click", function(){
-      handleLocateClick(btn);
-    });
-  }
-
-  function showLocateStatus(msg, isError){
-    var el = document.getElementById("locateStatus");
-    if (!el) return;
-    el.textContent = msg;
-    el.classList.toggle("error", !!isError);
-    el.classList.add("show");
-    clearTimeout(locateStatusTimer);
-    locateStatusTimer = setTimeout(function(){ el.classList.remove("show"); }, isError ? 6000 : 4000);
-  }
-
-  function handleLocateClick(btn){
-    if (!("geolocation" in navigator)){
-      showLocateStatus("เบราว์เซอร์นี้ไม่รองรับการระบุตำแหน่ง GPS", true);
-      return;
-    }
-    btn.classList.add("locating");
-    showLocateStatus("กำลังค้นหาตำแหน่งของคุณ...");
-    navigator.geolocation.getCurrentPosition(
-      function(pos){
-        btn.classList.remove("locating");
-        onLocated(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy);
-      },
-      function(err){
-        btn.classList.remove("locating");
-        var msg = "ไม่สามารถระบุตำแหน่งได้";
-        if (err.code === 1) msg = "กรุณาอนุญาตให้เข้าถึงตำแหน่ง GPS ในเบราว์เซอร์เพื่อใช้งานฟีเจอร์นี้";
-        else if (err.code === 2) msg = "ไม่สามารถระบุตำแหน่งได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง";
-        else if (err.code === 3) msg = "การค้นหาตำแหน่งใช้เวลานานเกินไป กรุณาลองใหม่อีกครั้ง";
-        showLocateStatus(msg, true);
-      },
-      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 }
-    );
-  }
-
-  function onLocated(lat, lng, accuracy){
-    if (!state.map) return;
-    var latlng = L.latLng(lat, lng);
-
-    if (state.userAccuracyCircle) state.map.removeLayer(state.userAccuracyCircle);
-    if (state.userMarker) state.map.removeLayer(state.userMarker);
-
-    state.userAccuracyCircle = L.circle(latlng, {
-      radius: accuracy || 50, color: "#2f6fed", weight: 1, fillColor: "#2f6fed", fillOpacity: 0.12
-    }).addTo(state.map);
-    state.userMarker = L.marker(latlng, {
-      icon: L.divIcon({ className: "user-loc-dot", html: '<span class="dot"></span>', iconSize: [14,14] })
-    }).addTo(state.map).bindTooltip("ตำแหน่งของคุณ", {direction:"top"});
-
-    state.map.setView(latlng, Math.max(state.map.getZoom(), 11));
-
-    var code = findTambonAtLatLng(lat, lng);
-    if (code && state.byCode[code]){
-      selectTambon(code, false);
-      showLocateStatus("พบตำแหน่งของคุณในเขต ต." + state.byCode[code].name);
-    } else {
-      showLocateStatus("พบตำแหน่งของคุณแล้ว แต่ไม่พบข้อมูลตำบลที่ครอบคลุมจุดนี้ (อาจอยู่นอกพื้นที่ที่มีข้อมูล)", true);
-    }
-  }
-
-  /* ---------------- selection / report ---------------- */
-  function selectTambon(code, panMap){
-    var prevCode = state.selectedCode;
-    state.selectedCode = code;
-
-    if (prevCode && state.layersByCode[prevCode]){
-      var prevLayer = state.layersByCode[prevCode];
-      prevLayer.setStyle(styleFor(prevLayer.feature));
-    }
-    var layer = state.layersByCode[code];
-    if (layer){
-      layer.setStyle(styleFor(layer.feature));
-      layer.bringToFront();
-      if (panMap && state.map){
-        var b = layer.getBounds();
-        if (b.isValid()) state.map.fitBounds(b, {maxZoom:10, padding:[40,40]});
-      }
-    }
-    renderReport(code);
-    document.getElementById("report").scrollIntoView({behavior:"smooth", block:"start"});
-  }
-
-  function factorCardHTML(opts){
-    var cls = "factor-card" + (opts.dashed ? " dashed" : "");
-    var badgeColor = opts.color || GRAY;
-    var border = "border-top-color:" + badgeColor;
-    var badge = opts.level !== undefined && opts.level !== null
-      ? '<span class="fbadge" style="background:' + (LEVEL_COLOR[opts.level]||GRAY) + '">' + esc(LEVEL_TEXT[opts.level] || "") + "</span>"
-      : "";
-    return '<div class="' + cls + '" style="' + border + '">' +
-      '<div class="fhead"><span class="ficon" style="color:' + badgeColor + '">' + opts.icon + '</span><span>' + esc(opts.title) + "</span></div>" +
-      '<div class="fvalue">' + esc(opts.value) + "</div>" +
-      (opts.desc ? '<div class="fdesc">' + esc(opts.desc) + "</div>" : "") +
-      badge +
-      "</div>";
-  }
-
-  var ICONS = {
-    rootrot: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v9M12 11c-3 0-5 2-5 5M12 11c3 0 5 2 5 5M7 22c0-3 2-5 5-5s5 2 5 5"/></svg>',
-    flood: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 15c1.5-2 3.5-2 5 0s3.5 2 5 0 3.5-2 5 0 3.5 2 5 0M2 20c1.5-2 3.5-2 5 0s3.5 2 5 0 3.5-2 5 0 3.5 2 5 0"/></svg>',
-    drought: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>',
-    storm: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8c2-4 8-4 9 0 3-1 6 1 6 4s-2 4-4 4H6a3 3 0 010-6"/></svg>',
-    elevation: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20l6-11 4 6 2-3 6 8H3z"/></svg>',
-    soil: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 17h18M6 7c1-2 3-2 4 0s3 2 4 0 3-2 4 0"/></svg>',
-    rainzone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 14a4 4 0 01.5-7.97A5 5 0 0116.5 8 3.5 3.5 0 0116 15H6z"/><path d="M8 18l-1 2M12 18l-1 2M16 18l-1 2"/></svg>'
-  };
-
-  // Builds a full explanation of the rootrot wet/dry rainfall pattern from the
-  // underlying 25-year pixel statistics (rootrot_max_consec_months / rootrot_n_wet_cycles
-  // / rootrot_drainage_label), instead of showing the bare pattern label -- the label
-  // alone (especially "ปานกลาง") doesn't say what's actually happening in the rainfall.
-  function rootrotDetailText(d){
-    var months = d.rootrot_max_consec_months;
-    var cycles = d.rootrot_n_wet_cycles;
-    if (months === null || months === undefined) return d.rootrot_pattern || "";
-
-    var mechanism;
-    if (months === 0){
-      mechanism = "ไม่มีเดือนใดที่ฝนตกเกิน 200 มม. ในรอบ 25 ปีที่ผ่านมา ดินจึงไม่ค่อยอิ่มตัวด้วยน้ำ ความเสี่ยงรากเน่าจากความชื้นดินต่ำ";
-    } else if (months <= 2){
-      mechanism = "มีช่วงฝนตกหนัก (เกิน 200 มม./เดือน) ติดต่อกันสั้น ๆ ไม่เกิน " + months + " เดือนต่อรอบ แล้วสลับแห้ง เป็นสภาพดินเปียก-แห้งสลับถี่ซึ่งเชื้อรา Phytophthora cinnamomi เจริญและแพร่กระจายได้ดีที่สุด";
-    } else if (months <= 4){
-      mechanism = "มีช่วงฝนตกหนัก (เกิน 200 มม./เดือน) ติดต่อกันนาน " + months + " เดือนต่อรอบ อยู่ระดับกลางระหว่างรูปแบบเปียก-แห้งสลับถี่ (เสี่ยงเชื้อรา) กับรูปแบบท่วมขังต่อเนื่องยาวนาน (เสี่ยงรากขาดออกซิเจน) จึงมีความเสี่ยงจากทั้งสองกลไกในระดับปานกลาง";
-    } else {
-      mechanism = "มีช่วงฝนตกหนัก (เกิน 200 มม./เดือน) ติดต่อกันยาวนานถึง " + months + " เดือนต่อรอบ ดินอิ่มตัวด้วยน้ำเป็นเวลานาน เสี่ยงรากขาดออกซิเจนโดยตรงมากกว่าจะเป็นเชื้อรา";
-    }
-    if (cycles !== null && cycles !== undefined && cycles >= 2){
-      mechanism += " (เกิดขึ้น " + cycles + " รอบต่อปี)";
-    }
-    if (d.rootrot_drainage_label){
-      mechanism += " ประกอบกับดินในพื้นที่นี้" + d.rootrot_drainage_label + " ซึ่งมีผลต่อระดับความเสี่ยงด้วย";
-    }
-    return mechanism;
-  }
-
-  function advisoryBlock(title, level, body, footnote, icon){
-    if (!body) return "";
-    return '<div class="advisory-block">' +
-      '<div class="ahead"><h4>' + (icon ? '<span class="ficon">' + icon + '</span>' : '') + esc(title) + '</h4>' + (level ? '<span class="lvl">ระดับจังหวัด: ' + esc(level) + '</span>' : '') + '</div>' +
-      '<p>' + esc(body) + '</p>' +
-      (footnote ? '<div class="foot">' + esc(footnote) + '</div>' : '') +
-      '</div>';
-  }
-
-  // LDD's soil-series map also uses some non-agricultural-soil land-cover codes in
-  // place of a real soil series -- e.g. U (urban/built-up), SC (complex steep slope
-  // terrain), W (water), AQ (aquaculture pond), F (forest), MA (military area), I
-  // (island), plus a couple of one-off labels like "นาเกลือ"/"พื้นที่ลุ่มชื้นแฉะ".
-  // None of these carry texture/fertility/pH data in the source (confirmed: for
-  // every tambon whose dominant class has no texture, it also has no pH AND no
-  // fertility -- a clean, complete split, not a partial data gap) so detect this
-  // generically instead of hardcoding each code.
-  function isNonAgriLandCover(d){
-    return !d.soil_texture && !d.soil_ph && !d.soil_fertility;
-  }
-
-  function soilDetailRows(d){
-    var cov = (d.soil_coverage_pct !== null && d.soil_coverage_pct !== undefined) ? (fmtNum(d.soil_coverage_pct) + "%") : null;
-    var rows = [
-      ["เนื้อดิน", d.soil_texture],
-      ["pH ดินบน", d.soil_ph],
-      ["ความอุดมสมบูรณ์", d.soil_fertility],
-      ["พื้นที่ครอบคลุมในตำบล", cov]
-    ];
-    return '<dl class="sdetail">' + rows.map(function(r){
-      return '<div><dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1] || "ไม่มีข้อมูล") + '</dd></div>';
-    }).join("") + '</dl>';
-  }
-
-  // Rain-zone detail rows for the report card: the tambon's k-means rainfall-regime
-  // zone (nearest 0.05-degree pixel to its centroid, see merge_rainzone.py), for both
-  // the long-term 25-year climatology and the recent 10-year window. Purely
-  // informational (like elevation_m and the soil fields) -- not part of the risk score.
-  function rainzoneDetailRows(d){
-    if (d.rainzone_25yr === null || d.rainzone_25yr === undefined){
-      return '<dl class="sdetail"><div><dt>โซนฝน</dt><dd>ไม่มีข้อมูล</dd></div></dl>';
-    }
-    var rows = [
-      ["โซนฝน (เฉลี่ย 25 ปี)", "โซน " + d.rainzone_25yr],
-      ["เดือนฝนชุกสุด", d.rainzone_25yr_peak_month],
-      ["ปริมาณฝนเฉลี่ย/ปี", fmtNum(d.rainzone_25yr_annual_mm) + " มม."]
-    ];
-    if (d.rainzone_10yr_peak_month && d.rainzone_10yr_peak_month !== d.rainzone_25yr_peak_month){
-      rows.push(["เดือนฝนชุกสุด (10 ปีล่าสุด)", d.rainzone_10yr_peak_month + " — ต่างจากค่าเฉลี่ย 25 ปี"]);
-    }
-    return '<dl class="sdetail">' + rows.map(function(r){
-      return '<div><dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1] || "ไม่มีข้อมูล") + '</dd></div>';
-    }).join("") + '</dl>';
-  }
-
-  function rainzoneAdviceText(d){
-    if (!d.rainzone_25yr_peak_month) return "";
-    var txt = "ควรเลือกพันธุ์อะโวคาโดที่เก็บเกี่ยวในช่วงนอกเดือน" + d.rainzone_25yr_peak_month +
-      " (เดือนที่ฝนตกชุกที่สุดในพื้นที่นี้ตามค่าเฉลี่ย 25 ปี) เพื่อหลีกเลี่ยงผลกระทบของฝนชุกต่อคุณภาพผลผลิตและความยากในการเก็บเกี่ยว";
-    if (d.rainzone_10yr_peak_month && d.rainzone_10yr_peak_month !== d.rainzone_25yr_peak_month){
-      txt += " ทั้งนี้ข้อมูล 10 ปีล่าสุดพบว่าเดือนฝนชุกสุดขยับไปเป็น" + d.rainzone_10yr_peak_month + " ควรพิจารณาแนวโน้มนี้ร่วมด้วย";
-    }
-    return txt;
-  }
-
-  // Looks up this tambon's own zone's monthly breakdown (25yr baseline; no 10yr
-  // monthly data is available, see merge_rainzone_monthly.py) and wraps the chart
-  // with a small caption, for the rain-zone report card.
-  function rainzoneMonthlyChartHTML(d){
-    if (d.rainzone_25yr === null || d.rainzone_25yr === undefined || !state.rainzoneLegend) return "";
-    var z = state.rainzoneLegend["25yr"][d.rainzone_25yr];
-    if (!z || !z.monthly_mm) return "";
-    return '<div class="rzsub" style="margin-top:10px">ฝนรายเดือน (เฉลี่ย 25 ปี)</div>' + monthlyBarChartSVG(z.monthly_mm, z.color || "#1565c0");
-  }
-
-  var MONTH_LABELS = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-
-  // Renders a small single-series (one zone, one hue) monthly-rainfall bar chart as
-  // an inline SVG string. Follows the dataviz mark spec: bars <=24px thick with a
-  // rounded data-end growing from the baseline, a 2px surface gap between them, and
-  // selective labeling (only the peak month gets a value label; the axis shows only
-  // Jan/peak/Dec to avoid 12 overlapping labels in a ~280px-wide card). Each bar
-  // carries a native <title> tooltip with its exact month + value, since the fixed
-  // zone-identity colors (light blue/green/yellow) don't all clear contrast on their
-  // own -- per dataviz guidance a contrast WARN requires visible labels, which the
-  // tooltip + axis + peak label together provide.
-  function monthlyBarChartSVG(monthly, color){
-    var w = 280, h = 108;
-    var padL = 2, padR = 2, padTop = 16, padBottom = 14;
-    var plotW = w - padL - padR, plotH = h - padTop - padBottom;
-    var n = monthly.length;
-    var gap = 2;
-    var barW = (plotW - gap * (n - 1)) / n;
-    var maxV = Math.max.apply(null, monthly);
-    var peakIdx = monthly.indexOf(maxV);
-    var bars = "", axis = "";
-    for (var i = 0; i < n; i++){
-      var v = monthly[i];
-      var bh = maxV > 0 ? Math.max((v / maxV) * plotH, 1) : 1;
-      var x = padL + i * (barW + gap);
-      var y = padTop + (plotH - bh);
-      bars += '<rect class="mbar" x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + barW.toFixed(1) +
-        '" height="' + bh.toFixed(1) + '" rx="3" fill="' + color + '"><title>' + esc(MONTH_LABELS[i]) + ' — ' + fmtNum(v) + ' มม.</title></rect>';
-      if (i === 0 || i === n - 1 || i === peakIdx){
-        var lx = x + barW / 2;
-        axis += '<text x="' + lx.toFixed(1) + '" y="' + (h - 2) + '" text-anchor="middle" class="mbar-axis">' + esc(MONTH_LABELS[i]) + '</text>';
-      }
-    }
-    var peakX = padL + peakIdx * (barW + gap) + barW / 2;
-    var peakY = padTop - 4;
-    var peakLabel = '<text x="' + peakX.toFixed(1) + '" y="' + peakY.toFixed(1) + '" text-anchor="middle" class="mbar-peak">' + fmtNum(maxV) + ' มม.</text>';
-    return '<svg viewBox="0 0 ' + w + ' ' + h + '" class="monthly-chart" role="img" aria-label="ปริมาณฝนรายเดือน">' + peakLabel + bars + axis + '</svg>';
-  }
-
-  // Lazily builds the "compare all 6 zones" panel the first time its <details> is
-  // opened. Each zone is its own small-multiple chart in that zone's own identity
-  // color (the same colors used on the map/legend), rather than a single shared
-  // magnitude ramp -- keeps "color = zone identity" consistent with the rest of the
-  // app instead of introducing a second, conflicting color grammar.
-  function initRainzoneCompare(){
-    var details = document.getElementById("rainzoneCompareDetails");
-    var body = document.getElementById("rainzoneCompareBody");
-    var built = false;
-    details.addEventListener("toggle", function(){
-      if (!details.open || built) return;
-      loadRainZoneData().then(function(){
-        var legend = state.rainzoneLegend["25yr"];
-        var ids = Object.keys(legend).sort(function(a,b){ return Number(a)-Number(b); });
-        var html = '<div class="rainzone-compare-grid">' + ids.map(function(zid){
-          var z = legend[zid];
-          if (!z.monthly_mm) return "";
-          return '<div class="rz-card">' +
-            '<div class="rzhead"><span class="rzsw" style="background:' + z.color + '"></span><span>โซน ' + esc(zid) + '</span></div>' +
-            '<div class="rzsub">ฝนชุกสุดเดือน ' + esc(z.peak_month) + ' · เฉลี่ย ' + fmtNum(z.annual_mm) + ' มม./ปี</div>' +
-            monthlyBarChartSVG(z.monthly_mm, z.color) +
-          '</div>';
-        }).join("") + '</div>';
-        body.innerHTML = html || '<div class="rz-loading">ไม่มีข้อมูล</div>';
-        built = true;
-      });
-    });
-  }
-
-  // Tambon-level soil-improvement guidance, derived from this tambon's own dominant
-  // soil series attributes (texture / fertility / pH) -- NOT fetched narrative text
-  // from LDD (their per-series lookup site is not reachable from here), and distinct
-  // from the generic PROVINCE-level "ดินและการปรับปรุงดิน" advisory below, which is
-  // based on province-wide averages. Target reference: avocado prefers pH ~6.0-6.5.
-  function textureAdvice(t){
-    if (!t) return "";
-    if (t.indexOf("เหนียว") !== -1) {
-      return "เนื้อดินมีส่วนของดินเหนียวปนอยู่ ระบายน้ำได้ช้ากว่าดินร่วนทั่วไปและเสี่ยงน้ำขังรอบโคนต้นเมื่อฝนตกหนัก ควรยกร่องปลูกและทำร่องระบายน้ำให้ดี เพิ่มอินทรียวัตถุเพื่อปรับโครงสร้างดินให้ร่วนซุยขึ้น และหลีกเลี่ยงการไถพรวน/เข้าทำงานในแปลงขณะดินเปียกเพื่อลดการอัดแน่นของดิน";
-    }
-    if (t.indexOf("ทราย") !== -1) {
-      return "เนื้อดินค่อนไปทางทราย ระบายน้ำเร็วแต่อุ้มน้ำและธาตุอาหารได้น้อย ควรเพิ่มอินทรียวัตถุหรือวัสดุคลุมโคน (เศษพืช/ปุ๋ยหมัก) อย่างสม่ำเสมอเพื่อเพิ่มความสามารถอุ้มน้ำ-ธาตุอาหาร และปรับเป็นให้น้ำปริมาณน้อยแต่บ่อยครั้งขึ้น";
-    }
-    return "เนื้อดินร่วน มีความสมดุลระหว่างการระบายน้ำและการอุ้มน้ำค่อนข้างดี เหมาะสมกับการปลูกอะโวคาโด ดูแลรักษาโครงสร้างดินด้วยอินทรียวัตถุตามปกติเพื่อคงคุณภาพดินในระยะยาว";
-  }
-  function fertilityAdvice(f){
-    if (!f) return "";
-    if (f.indexOf("ต่ำ") !== -1) {
-      return "ความอุดมสมบูรณ์อยู่ในระดับต่ำ ควรใส่ปุ๋ยอินทรีย์/ปุ๋ยหมัก/ปุ๋ยคอกเป็นประจำ ร่วมกับปุ๋ยเคมีตามผลวิเคราะห์ดิน เพื่อปรับปรุงธาตุอาหารและโครงสร้างดินในระยะยาว";
-    }
-    if (f.indexOf("ปานกลาง") !== -1) {
-      return "ความอุดมสมบูรณ์อยู่ในระดับปานกลาง ควรรักษาระดับอินทรียวัตถุด้วยการคลุมโคน/ใส่ปุ๋ยอินทรีย์อย่างต่อเนื่อง และเสริมปุ๋ยเคมีตามผลวิเคราะห์ดินเป็นระยะ";
-    }
-    if (f.indexOf("สูง") !== -1) {
-      return "ความอุดมสมบูรณ์อยู่ในระดับสูง ควรรักษาสภาพดินด้วยอินทรียวัตถุอย่างต่อเนื่องและลดการชะล้างพังทลายของหน้าดินเพื่อรักษาความอุดมสมบูรณ์ไว้";
-    }
-    return "";
-  }
-  function phAdvice(p){
-    if (!p) return "ค่า pH หน้าดินอยู่ในช่วงใกล้เคียงระดับที่เหมาะสมสำหรับอะโวคาโด (6.0–6.5) ไม่จำเป็นต้องปรับปรุงมาก";
-    if (p.indexOf("จัดมาก") !== -1 || p.indexOf("รุนแรงมาก") !== -1) {
-      return "ดินเป็นกรดจัดมาก ต่ำกว่าช่วง pH ที่เหมาะสมสำหรับอะโวคาโด (6.0–6.5) ค่อนข้างมาก แนะนำใส่ปูนโดโลไมท์หรือปูนขาวปรับ pH ก่อนปลูก และตรวจวิเคราะห์ดินติดตามเป็นระยะ";
-    }
-    if (p.indexOf("จัด") !== -1) {
-      return "ดินเป็นกรดจัด ต่ำกว่าช่วง pH ที่เหมาะสมสำหรับอะโวคาโด (6.0–6.5) แนะนำใส่ปูนปรับ pH ตามผลวิเคราะห์ดินก่อนปลูกหรือระหว่างการดูแลรักษา";
-    }
-    if (p.indexOf("ด่าง") !== -1) {
-      return "ดินมีแนวโน้มเป็นด่างในบางช่วง อาจทำให้พืชขาดธาตุอาหารรอง (เหล็ก สังกะสี) แนะนำใช้ปุ๋ยอินทรีย์ ติดตามอาการขาดธาตุอาหารรอง และตรวจวิเคราะห์ดินก่อนปรับ pH เพิ่มเติม";
-    }
-    if (p.indexOf("ปานกลาง") !== -1) {
-      return "ดินเป็นกรดปานกลาง ใกล้เคียงช่วง pH ที่เหมาะสมสำหรับอะโวคาโด ควรตรวจวิเคราะห์ดินก่อนตัดสินใจใส่ปูนปรับ pH เพิ่มเติม";
-    }
-    return "ค่า pH หน้าดินอยู่ในช่วงใกล้เคียงระดับที่เหมาะสมสำหรับอะโวคาโด (6.0–6.5) ไม่จำเป็นต้องปรับปรุงมาก";
-  }
-  function buildSoilAdvice(d){
-    if (!d.soil_series_name || isNonAgriLandCover(d)) return null;
-    var bits = [];
-    var t = textureAdvice(d.soil_texture); if (t) bits.push(t);
-    var f = fertilityAdvice(d.soil_fertility); if (f) bits.push(f);
-    var p = phAdvice(d.soil_ph); if (p) bits.push(p);
-    if (!bits.length) return null;
-    return bits.join(" ");
-  }
-
-  function renderReport(code){
-    var d = state.byCode[code];
-    var container = document.getElementById("report");
-    if (!d){
-      container.innerHTML = '<div class="report-empty" id="reportEmpty">เลือกหรือค้นหาตำบลเพื่อดูรายละเอียดความเสี่ยงที่นี่</div>';
-      return;
-    }
-    var badgeColor = OVERALL_COLOR[d.overall_color] || GRAY;
-
-    var factors = [];
-    factors.push(factorCardHTML({
-      title:"รากเน่าโคนเน่า", icon:ICONS.rootrot,
-      value: d.rootrot_band || "ไม่มีข้อมูล",
-      desc: rootrotDetailText(d),
-      level: d.rootrot_level, color: d.rootrot_level!==null&&d.rootrot_level!==undefined ? LEVEL_COLOR[d.rootrot_level] : GRAY
-    }));
-    factors.push(factorCardHTML({
-      title:"น้ำท่วม / รากขาดอากาศ", icon:ICONS.flood,
-      value: d.flood_label || "ไม่มีข้อมูล",
-      desc: d.asphyxiation_label || "",
-      level: d.flood_level, color: d.flood_level!==null&&d.flood_level!==undefined ? LEVEL_COLOR[d.flood_level] : GRAY
-    }));
-    factors.push(factorCardHTML({
-      title:"ภัยแล้ง", icon:ICONS.drought,
-      value: d.drought_label || "ไม่มีข้อมูล",
-      desc: "",
-      level: d.drought_level, color: d.drought_level!==null&&d.drought_level!==undefined ? LEVEL_COLOR[d.drought_level] : GRAY
-    }));
-    factors.push(factorCardHTML({
-      title:"วาตภัย", icon:ICONS.storm,
-      value: d.storm_label || "ไม่มีข้อมูล",
-      desc: (d.storm_events !== null && d.storm_events !== undefined) ? ("เหตุการณ์สะสม " + fmtNum(d.storm_events) + " ครั้ง") : "",
-      level: d.storm_level, color: d.storm_level!==null&&d.storm_level!==undefined ? LEVEL_COLOR[d.storm_level] : GRAY
-    }));
-    factors.push(factorCardHTML({
-      title:"ระดับความสูง", icon:ICONS.elevation,
-      value: (d.elevation_m !== null && d.elevation_m !== undefined) ? (fmtNum(d.elevation_m) + " ม.") : "ไม่มีข้อมูล",
-      desc:"ข้อมูลบริบทจากแบบจำลองดาวเทียม SRTM ไม่ได้ใช้คำนวณคะแนนความเสี่ยง",
-      dashed:true, color:"#b79567"
-    }));
-    factors.push(
-      '<div class="factor-card dashed" style="border-top-color:#8a5a34">' +
-        '<div class="fhead"><span class="ficon" style="color:#8a5a34">' + ICONS.soil + '</span><span>ชุดดิน</span></div>' +
-        '<div class="fvalue">' + esc(d.soil_series_name || "ไม่มีข้อมูล") + "</div>" +
-        soilDetailRows(d) +
-      "</div>"
-    );
-    factors.push(
-      '<div class="factor-card dashed" style="border-top-color:#1565c0">' +
-        '<div class="fhead"><span class="ficon" style="color:#1565c0">' + ICONS.rainzone + '</span><span>เขตฝน</span></div>' +
-        '<div class="fvalue">' + (d.rainzone_25yr ? ("โซน " + esc(d.rainzone_25yr)) : "ไม่มีข้อมูล") + "</div>" +
-        rainzoneDetailRows(d) +
-        (rainzoneAdviceText(d) ? '<div class="foot">' + esc(rainzoneAdviceText(d)) + '</div>' : "") +
-        rainzoneMonthlyChartHTML(d) +
-      "</div>"
-    );
-
-    var info = state.provinceInfo[d.pro];
-    var advisoryHTML = "";
-    if (info){
-      advisoryHTML =
-        advisoryBlock("รากเน่าโคนเน่า", info.root_rot_province_label, info.advice_rootrot, "รูปแบบระดับจังหวัด: " + (info.root_rot_pattern||"—"), ICONS.rootrot) +
-        advisoryBlock("ภัยแล้ง", info.drought_risk_10yr, info.advice_drought, "", ICONS.drought) +
-        advisoryBlock("ดินและการปรับปรุงดิน", info.soil_improvement, info.advice_soil, "pH เฉลี่ย " + (info.avg_ph!==undefined?info.avg_ph:"—") + " · เนื้อดิน: " + (info.texture||"—"), ICONS.soil);
-    }
-
-    var soilAdvice = buildSoilAdvice(d);
-    var soilAdviceHTML = soilAdvice ?
-      '<div class="soil-advice">' +
-        '<div class="sahead"><span class="ficon">' + ICONS.soil + '</span><h4>คำแนะนำการปรับปรุงดิน (เฉพาะตำบลนี้)</h4></div>' +
-        '<p>' + esc(soilAdvice) + '</p>' +
-        '<div class="foot">อ้างอิงจากเนื้อดิน ความอุดมสมบูรณ์ และค่า pH ของชุดดิน "' + esc(d.soil_series_name) + '" ที่พบมากที่สุดในตำบลนี้ เป็นคำแนะนำทั่วไปตามหลักการจัดการดิน ควรตรวจวิเคราะห์ดินจริงในแปลงก่อนตัดสินใจปรับปรุงดิน</div>' +
-      '</div>'
-      : '';
-
-    container.innerHTML =
-      '<div class="report-card">' +
-        '<div class="report-head">' +
-          '<div>' +
-            '<h2>ต.' + esc(d.name) + "</h2>" +
-            '<div class="loc">อ./เขต ' + esc(d.amp) + " · จ." + esc(d.pro) + "</div>" +
-            '<div class="code">รหัสตำบล ' + esc(d.code) + "</div>" +
-          "</div>" +
-        "</div>" +
-        '<div class="risk-badge" style="background:' + badgeColor + '"><span class="dot"></span>' + esc(d.overall_color) + "</div>" +
-        '<div class="risk-summary">' + esc(d.overall_text) + "</div>" +
-        '<div class="factor-grid">' + factors.join("") + "</div>" +
-        soilAdviceHTML +
-        (advisoryHTML ?
-          '<details class="advisory" open><summary>คำแนะนำการจัดการ (อิงข้อมูลระดับจังหวัด: ' + esc(d.pro) + ')</summary>' + advisoryHTML + '</details>'
-          : '') +
-      "</div>";
-  }
-
-  /* ---------------- search ---------------- */
-  function searchRecords(q){
-    q = q.trim();
-    if (!q) return [];
-    var out = [];
-    for (var i=0;i<state.tambonData.length;i++){
-      var d = state.tambonData[i];
-      if (d.name.indexOf(q) !== -1 || d.amp.indexOf(q) !== -1 || d.pro.indexOf(q) !== -1){
-        out.push(d);
-        if (out.length >= 30) break;
-      }
-    }
-    return out;
-  }
-
-  function renderSuggest(results){
-    var box = document.getElementById("searchSuggest");
-    if (!results.length){
-      box.innerHTML = '<div class="empty">ไม่พบผลลัพธ์</div>';
-      box.classList.add("open");
-      return;
-    }
-    box.innerHTML = results.map(function(d){
-      return '<div class="item" data-code="' + esc(d.code) + '">' +
-        esc(d.name) + '<div class="loc">อ./เขต ' + esc(d.amp) + " · จ." + esc(d.pro) + "</div></div>";
-    }).join("");
-    box.classList.add("open");
-    Array.prototype.forEach.call(box.querySelectorAll(".item"), function(item){
-      item.addEventListener("click", function(){
-        var code = item.getAttribute("data-code");
-        document.getElementById("searchInput").value = state.byCode[code].name;
-        box.classList.remove("open");
-        selectTambon(code, true);
-      });
-    });
-  }
-
-  function initSearch(){
-    var input = document.getElementById("searchInput");
-    var box = document.getElementById("searchSuggest");
-    var onInput = debounce(function(){
-      var results = searchRecords(input.value);
-      if (!input.value.trim()){ box.classList.remove("open"); return; }
-      renderSuggest(results);
-    }, 150);
-    input.addEventListener("input", onInput);
-    input.addEventListener("focus", onInput);
-    document.addEventListener("click", function(e){
-      if (!box.contains(e.target) && e.target !== input) box.classList.remove("open");
-    });
-  }
-
-  /* ---------------- cascading browse ---------------- */
-  function initBrowse(){
-    var toggle = document.getElementById("browseToggle");
-    var panel = document.getElementById("browsePanel");
-    toggle.addEventListener("click", function(){
-      panel.classList.toggle("open");
-      toggle.classList.toggle("open");
-    });
-
-    var selPro = document.getElementById("selPro");
-    var selAmp = document.getElementById("selAmp");
-    var selTam = document.getElementById("selTam");
-
-    Object.keys(state.provincesIndex).sort(function(a,b){ return a.localeCompare(b, "th"); }).forEach(function(pro){
-      var opt = document.createElement("option");
-      opt.value = pro; opt.textContent = pro;
-      selPro.appendChild(opt);
-    });
-
-    selPro.addEventListener("change", function(){
-      selAmp.innerHTML = '<option value="">— อำเภอ/เขต —</option>';
-      selTam.innerHTML = '<option value="">— ตำบล/แขวง —</option>';
-      selAmp.disabled = true; selTam.disabled = true;
-      var pro = selPro.value;
-      if (!pro) return;
-      Object.keys(state.provincesIndex[pro]).sort(function(a,b){ return a.localeCompare(b, "th"); }).forEach(function(amp){
-        var opt = document.createElement("option");
-        opt.value = amp; opt.textContent = amp;
-        selAmp.appendChild(opt);
-      });
-      selAmp.disabled = false;
-    });
-
-    selAmp.addEventListener("change", function(){
-      selTam.innerHTML = '<option value="">— ตำบล/แขวง —</option>';
-      selTam.disabled = true;
-      var pro = selPro.value, amp = selAmp.value;
-      if (!pro || !amp) return;
-      state.provincesIndex[pro][amp]
-        .slice().sort(function(a,b){ return a.name.localeCompare(b.name, "th"); })
-        .forEach(function(rec){
-          var opt = document.createElement("option");
-          opt.value = rec.code; opt.textContent = rec.name;
-          selTam.appendChild(opt);
-        });
-      selTam.disabled = false;
-    });
-
-    selTam.addEventListener("change", function(){
-      if (selTam.value) selectTambon(selTam.value, true);
-    });
-  }
-
-  /* ---------------- colorby ---------------- */
-  function initColorBy(){
-    var sel = document.getElementById("colorBy");
-    var baselineRow = document.getElementById("rainzoneBaselineRow");
-    var baselineSel = document.getElementById("rainzoneBaseline");
-    sel.addEventListener("change", function(){
-      state.colorBy = sel.value;
-      baselineRow.style.display = state.colorBy === "rainzone" ? "" : "none";
-      recolorAll();
-    });
-    baselineSel.addEventListener("change", function(){
-      state.rainzoneBaseline = baselineSel.value;
-      if (state.colorBy === "rainzone") recolorAll();
-    });
-  }
-
-  /* ---------------- leaflet loader ---------------- */
-  // Loaded dynamically (rather than a static <script defer> tag) so we can
-  // deterministically wait for it to finish before touching `L`, and show a
-  // clear error if the CDN request fails, instead of racing script order.
-  function loadLeaflet(){
-    return new Promise(function(resolve, reject){
-      if (typeof L !== "undefined"){ resolve(); return; }
-      var s = document.createElement("script");
-      s.src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js";
-      s.onload = function(){ resolve(); };
-      s.onerror = function(){ reject(new Error("โหลดไลบรารีแผนที่ (Leaflet) จาก CDN ไม่สำเร็จ")); };
-      document.head.appendChild(s);
-    });
-  }
-
-  /* ---------------- boot ---------------- */
-  function boot(){
-    initTheme();
-    var mapEl = document.getElementById("map");
-    mapEl.innerHTML = '<div class="loading-note">กำลังโหลดข้อมูลแผนที่...</div>';
-
-    initLocateButton();
-
-    Promise.all([loadAll(), loadLeaflet()]).then(function(){
-      mapEl.innerHTML = "";
-      initMap();
-      renderLegend();
-      initSearch();
-      initBrowse();
-      initColorBy();
-      initRainzoneCompare();
-      var locateBtn = document.getElementById("locateBtn");
-      locateBtn.disabled = false;
-      locateBtn.title = "ระบุตำแหน่งของฉัน (GPS)";
-    }).catch(function(err){
-      mapEl.innerHTML = '<div class="loading-note">โหลดข้อมูลไม่สำเร็จ: ' + esc(err && err.message ? err.message : err) + '. กรุณาลองรีเฟรชหน้านี้อีกครั้ง</div>';
-    });
-  }
-
-  if (document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", boot);
-  } else {
-    boot();
-  }
-})();
+  $("rainList").innerHTML=rows.map(([k,v])=>`<li><span>${k}</span><div>${v}</div></li>`).join("");
+  const W=640,H=220,L=40,R=8,T=14,B=26,top=Math.ceil(Math.max(...m10,...m30)/100)*100||100;
+  const x=k=>L+(W-L-R)*(k+.5)/12,y=v=>T+(H-T-B)*(1-v/top),bw=(W-L-R)/12*.5;
+  let s="";
+  for(let v=0;v<=top;v+=top/4)s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end">${fmt(v)}</text>`;
+  m10.forEach((v,k)=>{s+=`<rect x="${x(k)-bw/2}" y="${y(v)}" width="${bw}" height="${Math.max(0,y(0)-y(v))}" rx="3" fill="${v<50?'var(--md)':'var(--accent)'}"><title>${MON[k]} ${fmt(v)} มม.</title></rect><text x="${x(k)}" y="${H-7}" text-anchor="middle">${MON[k]}</text>`});
+  s+=`<polyline fill="none" stroke="var(--muted)" stroke-width="1.5" points="${m30.map((v,k)=>x(k)+","+y(v)).join(" ")}"/>`;
+  $("chart").innerHTML=s;
+}
+
+$("gps").addEventListener("click",()=>{
+  const b=$("gps");
+  if(!navigator.geolocation){msg("อุปกรณ์นี้ไม่รองรับ GPS พิมพ์ชื่อตำบลหรือวางพิกัดแทนได้",true);return}
+  b.setAttribute("aria-busy","true");msg("กำลังหาตำแหน่ง…");
+  navigator.geolocation.getCurrentPosition(p=>{b.removeAttribute("aria-busy");locate(p.coords.longitude,p.coords.latitude,"พิกัดของคุณ")},
+    err=>{b.removeAttribute("aria-busy");msg(err&&err.code===1?"ยังไม่ได้อนุญาตให้ใช้ตำแหน่ง เปิดสิทธิ์ตำแหน่งในเบราว์เซอร์ หรือพิมพ์ชื่อตำบลแทน":"หาตำแหน่งไม่สำเร็จ ลองใหม่ในที่โล่ง หรือพิมพ์ชื่อตำบลแทน",true)},
+    {enableHighAccuracy:true,timeout:15000,maximumAge:60000});
+});
+$("q").addEventListener("input",e=>{
+  const v=e.target.value.trim(),box=$("results");
+  const n=v.match(/-?\d+\.\d+/g);
+  if(n&&n.length>=2){box.hidden=true;clearTimeout(window._ct);window._ct=setTimeout(()=>{let[a,b]=n.map(Number);if(a>90)[a,b]=[b,a];locate(b,a,"พิกัด")},700);return}
+  const q=v.replace(/^(ต\.|อ\.|จ\.|ตำบล|อำเภอ|จังหวัด)\s*/,"");
+  if(!D||q.length<2){box.hidden=true;return}
+  const hit=[];for(let i=0;i<D.length&&hit.length<30;i++){const t=D[i];if(t[1].includes(q)||t[2].includes(q)||t[3].includes(q))hit.push(i)}
+  hit.sort((a,b)=>(D[b][1].startsWith(q))-(D[a][1].startsWith(q)));
+  box.innerHTML=hit.length?hit.map(i=>`<button type="button" data-i="${i}">ต.${esc(D[i][1])} <small>อ.${esc(D[i][2])} จ.${esc(D[i][3])}</small></button>`).join(""):`<p class="msg" style="padding:10px 14px">ไม่พบชื่อนี้</p>`;
+  box.hidden=false;
+});
+$("q").addEventListener("keydown",e=>{
+  if(e.key!=="Enter")return;
+  const n=(e.target.value.match(/-?\d+\.\d+/g)||[]).map(Number);
+  if(n.length>=2){let[a,b]=n;if(a>90)[a,b]=[b,a];locate(b,a,"พิกัด");e.target.value=""}
+  else{const f=$("results").querySelector("button");if(f)f.click()}
+});
+$("results").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;$("results").hidden=true;$("q").value="";msg("");show(+b.dataset.i,false)});
+document.addEventListener("click",e=>{if(!e.target.closest(".search"))$("results").hidden=true});
+
+const EADV={
+ y0:["เก็บน้ำให้เต็มสระและบ่อก่อนฝนหมด ขุดลอกสระที่ตื้นเขินตั้งแต่ต้นฤดูฝน","ประเมินว่าน้ำที่มีพอให้ต้นไม้ได้กี่วัน เทียบกับจำนวนเดือนแล้งของพื้นที่","วางแผนลดพื้นที่ให้น้ำหรือจัดลำดับแปลงที่ต้องได้น้ำก่อน"],
+ ne:["ฝนปลายปีน้อยกว่าปกติ ฤดูแล้งจะมาเร็ว เริ่มให้น้ำเสริมตั้งแต่ ธ.ค.","เก็บน้ำช่วงฝนปลายปีให้ได้มากที่สุด","ติดตามความชื้นดินในช่วงชักนำการออกดอก เพราะดินจะแห้งเร็วกว่าปกติ"],
+ fm:["ช่วง ก.พ.–พ.ค. ไม้ผลหลายชนิดกำลังออกดอกติดผล ให้น้ำสม่ำเสมอ อย่าปล่อยให้ดินแห้งสลับเปียก","คลุมโคนต้นหนา 10–15 ซม. ลดการระเหยน้ำ","ไม่บำรุงให้แตกใบอ่อนในช่วงแล้ง","ถ้าน้ำไม่พอ ไว้ผลให้น้อยลงหรือปลิดผลบางส่วน ดีกว่าต้นโทรมทั้งต้น"],
+ heat:["พรางแสงต้นเล็กและต้นปลูกใหม่ ทาปูนขาวลำต้นด้านรับแดดบ่าย","ห่อผลหรือจัดทรงพุ่มให้ผลไม่โดนแดดจัด ลดผลไหม้","ให้น้ำช่วงเช้า และเลี่ยงการพ่นสารหรือปุ๋ยทางใบช่วงบ่ายที่ร้อนจัด"],
+ vpd:["ช่วงบ่ายที่อากาศแห้งมาก พ่นหมอกหรือเปิดสปริงเกลอร์เหนือทรงพุ่ม ลดการคายน้ำและดอกร่วง","ใช้แอปพยากรณ์ VPD ดูชั่วโมงที่ควรเปิดน้ำ","ปลูกไม้กันลมรอบแปลง ลดลมร้อนแห้ง"],
+ run:["ให้น้ำถี่ขึ้นในช่วงร้อนแล้งต่อเนื่อง ตรวจความชื้นดินที่ระดับราก","เฝ้าระวังไรแดงและเพลี้ยไฟ ที่ระบาดมากในสภาพร้อนแห้ง","เตรียมน้ำสำรองให้พอสำหรับช่วงร้อนแล้งที่ยาวกว่าปกติราวสองถึงสามสัปดาห์"],
+ onset:["อย่าหยุดให้น้ำเมื่อฝนแรกตก รอจนฝนตกสม่ำเสมอ","เลื่อนการปลูกต้นใหม่ออกไปจนฝนมาแน่นอน","สำรองน้ำไว้ใช้ถึงปลาย พ.ค.–มิ.ย."]};
+function enso(i){
+  const e=EN&&EN[i]; if(!e)return;
+  const [z,fb,f98,f16,f24,jb,jy,od,ne,ta,h35,v3,vmx,run,rep,ev,db,d98,d16,d24,cb,cS,onb,o98,o16,o24,hb,h98,h16,h24]=e;
+  const it=[];
+  const T=D[i]; $("ensoPlace").textContent=`ต.${T[1]} อ.${T[2]} จ.${T[3]}`;
+  $("ensoIntro").textContent=`ข้อมูลด้านล่างคือสิ่งที่เคยเกิดใน ต.${T[1]} ช่วงเอลนีโญรุนแรง ใช้เตรียมตัวเมื่อกรมอุตุนิยมวิทยาหรือหน่วยงานต่างประเทศเตือนว่ากำลังเกิดเอลนีโญ ผลกระทบหลักมักเกิดในฤดูแล้งของปีถัดไป`;
+  const jp=Math.round(100*(jy/jb-1)), js=jp<=-25?3:jp<=-10?2:1;
+  const jt=js>1?"ฝนฤดูฝนน้อยลง":jp>=10?"ฝนฤดูฝนมากกว่าปกติ":"ฝนฤดูฝนใกล้เคียงปกติ";
+  const jn=js>1?"แหล่งน้ำจะเก็บน้ำได้น้อยกว่าปกติ ควรเริ่มเตรียมน้ำสำรองตั้งแต่ปลายฤดูฝน":jp>=10?"ฝนมากกว่าปกติ ระวังน้ำท่วมขังช่วงฝนชุก ส่วนผลกระทบหลักของเอลนีโญจะมาในฤดูแล้งปีถัดไป":"ฝนในฤดูฝนไม่ลดลง จึงยังเก็บน้ำได้ตามปกติ แต่ผลกระทบจะมาในฤดูแล้งปีถัดไป ให้เก็บน้ำให้เต็มก่อนฝนหมด";
+  it.push(card2(js,"ปีที่เกิด · มิ.ย.–ต.ค.",jt,js===3?"ลดลงมาก":js===2?"ลดลง":jp>=10?"มากกว่าปกติ":"ใกล้ปกติ",
+    `<p>ฝน มิ.ย.–ต.ค. ปกติราว <b>${fmt(jb)} มม.</b> ปีที่เกิดเอลนีโญรุนแรงเฉลี่ย <b>${fmt(jy)} มม.</b> (${jp>0?"+":""}${jp}%) ${jn}</p>`,js>1?"y0":null));
+  const ns=ne<=-25?3:ne<=-12?2:1, nA=fmt(Math.abs(ne),0);
+  if(z>=5) it.push(card2(ns,"ปลายปี · ต.ค.–ม.ค.",ns>1?"ฝนมรสุมตะวันออกเฉียงเหนือลดลง":"ฝนมรสุมตะวันออกเฉียงเหนือใกล้ปกติ",ns===3?"ลดลงมาก":ns===2?"ลดลง":"ใกล้ปกติ",`<p>ฝนช่วงมรสุมตะวันออกเฉียงเหนือในปีเอลนีโญ${ne<=-1?"ลดลง":ne>=1?"เพิ่มขึ้น":"ไม่เปลี่ยน"}เฉลี่ย <b>${nA}%</b>${ns>1?" ฤดูแล้งจะมาเร็วกว่าปกติ":" จึงไม่ต้องกังวลเรื่องฝนปลายปี"}</p>`,ns>1?"ne":null));
+  const yrs=[["2541",f98],["2559",f16],["2567",f24]], mn=(f98+f16+f24)/3, dp=Math.round(100*(1-mn/fb)), fs=dp>=35?3:dp>=20?2:1, mx=Math.max(fb,f98,f16,f24);
+  const bars=`<div class="yrs"><span>ปีปกติ</span><div class="track"><span style="width:${100*fb/mx}%;background:var(--accent)"></span></div><b>${fmt(fb)}</b>`+
+    yrs.map(([y,v])=>`<span>${y}</span><div class="track"><span style="width:${100*v/mx}%;background:${v<0.7*fb?'var(--hi)':'var(--md)'}"></span></div><b>${fmt(v)}</b>`).join("")+`</div>`;
+  const ft=dp>=20?"ฝนช่วงต้นปีหายไป":dp>=10?"ฝนช่วงต้นปีน้อยลงเล็กน้อย":dp<=-10?"ฝนช่วงต้นปีมากกว่าปกติ":"ฝนช่วงต้นปีใกล้เคียงปกติ";
+  const fbody=dp>=10?`ฝน ก.พ.–พ.ค. ลดลงเฉลี่ย <b>${dp}%</b> (จาก ${fmt(fb)} เหลือ ${fmt(mn)} มม.)${dp>=20?" ตรงกับช่วงที่ไม้ผลหลายชนิดออกดอกติดผล":""}`:dp<=-10?`ฝน ก.พ.–พ.ค. เพิ่มขึ้นเฉลี่ย <b>${-dp}%</b> ปีเอลนีโญไม่ได้ทำให้ฝนต้นปีหายไปในพื้นที่นี้ ให้ดูความร้อนและความแห้งของอากาศด้านล่างแทน`:`ฝน ก.พ.–พ.ค. เปลี่ยนไปไม่มาก (${dp>0?"ลดลง":"เพิ่มขึ้น"} ${Math.abs(dp)}%) ปีเอลนีโญไม่ได้ทำให้ฝนต้นปีหายไปมากในพื้นที่นี้ แต่ให้ดูความร้อนและความแห้งของอากาศด้านล่าง`;
+  it.push(card2(fs,"ปีถัดไป · ก.พ.–พ.ค.",ft,fs===3?"ลดลงมาก":fs===2?"ลดลง":dp>=10?"ลดลงเล็กน้อย":"ใกล้ปกติ",`<p>${fbody}</p>${bars}`,fs>1?"fm":null));
+  // วันร้อนจัด (ค่ารายตำบลจาก TerraClimate) และวันอากาศแห้ง (ฐานค่าเฉลี่ยพื้นที่ภูมิอากาศคล้ายกัน + ส่วนเพิ่มของตำบล)
+  const t1=D[i], mm=t1[10][6];
+  const mxm=Math.max(...mm,1), hotM=mm.map((v,k)=>v>=Math.max(3,0.5*mxm)?k:-1).filter(k=>k>=0), hspan=hotM.length?(hotM.length===1?MON[hotM[0]]:`${MON[hotM[0]]}–${MON[hotM[hotM.length-1]]}`):null;
+  const zh=ZH[z]||ZH[4], v0=Math.round(zh[3]), v1=v0+Math.max(0,Math.round(v3));
+  const cmp=(a,b,u,c)=>{const m=Math.max(a,b,1);return `<div class="yrs"><span>ปีปกติ</span><div class="track"><span style="width:${100*a/m}%;background:var(--accent)"></span></div><b>${fmt(a)} ${u}</b><span>ปีเอลนีโญ</span><div class="track"><span style="width:${100*b/m}%;background:var(--${c})"></span></div><b>${fmt(b)} ${u}</b></div>`};
+  const hS=Math.round((h98+h16+h24)/3), hx=hS-hb, hs=Math.max(hx>=25?3:hx>=10?2:1, hS>=75?2:1);
+  const htl=hx>=10?"ร้อนจัดกว่าปกติ":hS>=30?"ร้อนจัดอยู่แล้ว ปีเอลนีโญเพิ่มเล็กน้อย":"ไม่ค่อยร้อนจัด";
+  const hst=hx>=25?"ร้อนจัดมาก":hx>=10?"ร้อนขึ้น":hS>=60?"ร้อนจัดอยู่แล้ว":"ร้อนขึ้นเล็กน้อย";
+  it.push(card2(hs,hspan?`ปีถัดไป · ${hspan}`:"ปีถัดไป · ฤดูร้อน",htl,hst,
+    `<p>วันที่ร้อนถึง 35°C ปกติมีราว <b>${fmt(hb)} วันต่อปี</b> ปีเอลนีโญรุนแรงเฉลี่ย <b>${fmt(hS)} วัน</b>${hx>=1?` (เพิ่ม ${fmt(hx)} วัน)`:" (ใกล้เคียงปกติ)"} อุณหภูมิสูงสุดเฉลี่ยช่วงร้อนสูงขึ้นราว ${fmt(ta,1)}°C</p>${ybars(hb,[["2541",h98],["2559",h16],["2567",h24]],"วัน")}<p class="note">${hspan?`วันร้อนจัดส่วนใหญ่อยู่ช่วง ${hspan} `:""}· ประมาณจากอุณหภูมิรายเดือน TerraClimate ปรับเทียบกับสถานีตรวจอากาศ ค่าจริงอาจต่างได้ราว ±10 วัน</p>`,hs>1?"heat":null));
+  const vs=v3>=25?3:v3>=10?2:1;
+  it.push(card2(vs,"ปีถัดไป · ก.พ.–พ.ค.",vs>1?"อากาศแห้งจัดช่วงบ่าย":"อากาศแห้งช่วงบ่ายเพิ่มขึ้นเล็กน้อย",vs===3?"แห้งจัดมาก":vs===2?"แห้งขึ้น":"แห้งขึ้นเล็กน้อย",
+    `<p>วันที่อากาศบ่ายแห้งจัด (VPD ถึง 3 kPa) ปกติมีราว <b>${fmt(v0)} วัน</b> ปีเอลนีโญรุนแรงจะมีราว <b>${fmt(v1)} วัน</b> ${v3>=1?`(เพิ่ม ${fmt(v3)} วัน)`:"(ใกล้เคียงปกติ)"}${vs>1?" พืชจะคายน้ำมาก ดอกและผลอ่อนร่วงง่าย":""}</p>${cmp(v0,v1,"วัน",vs>1?"hi":"md")}${v1<=zh[5]?`<p class="note">ปีที่หนักที่สุดในพื้นที่ภูมิอากาศคล้ายกัน (${BE(zh[4])}) มีถึง ${fmt(zh[5])} วัน</p>`:""}`,vs>1?"vpd":null));
+  const dS=Math.round((d98+d16+d24)/3), dx=dS-db, rs=dx>=20?3:dx>=10?2:1;
+  const dbars=ybars(db,[["2541",d98],["2559",d16],["2567",d24]],"วัน");
+  const rt=dx>=10?"แล้งต่อเนื่องนานขึ้น":dx>=3?"แล้งต่อเนื่องนานขึ้นเล็กน้อย":"แล้งต่อเนื่องใกล้เคียงปกติ";
+  const rdesc=dx>=3?` (นานขึ้น ${fmt(dx)} วัน)`:" (ใกล้เคียงปกติ)";
+  const radv=[`เตรียมน้ำสำรองให้พอสำหรับช่วงแล้งที่ไม่มีฝนติดต่อกันราว ${fmt(dS)} วัน (นานกว่าปกติราว ${fmt(dx)} วัน)`,"ให้น้ำถี่ขึ้นในช่วงแล้งต่อเนื่อง ตรวจความชื้นดินที่ระดับราก","เฝ้าระวังไรแดงและเพลี้ยไฟ ที่ระบาดมากในสภาพร้อนแห้ง"];
+  it.push(card2(rs,"ปีถัดไป · ก.พ.–มิ.ย.",rt,rs===3?"นานขึ้นมาก":rs===2?"นานขึ้น":dx>=3?"นานขึ้นเล็กน้อย":"ใกล้ปกติ",
+    `<p>ช่วงที่ฝนแทบไม่ตก (น้อยกว่า 1 มม./วัน) ติดต่อกันนานที่สุด ปกติราว <b>${fmt(db)} วัน</b> ปีเอลนีโญรุนแรงเฉลี่ย <b>${fmt(dS)} วัน</b>${rdesc} ต้นไม้ต้องผ่านช่วงนี้โดยไม่มีฝนช่วย</p>${dbars}<p class="note">รวมทั้งช่วง ก.พ.–มิ.ย. มีวันที่ฝนแทบไม่ตก ปกติราว ${fmt(cb)} วัน ปีเอลนีโญรุนแรงราว ${fmt(cS)} วัน${run>=5?` · ช่วงที่ร้อนและแล้งพร้อมกันยาวขึ้นราว ${fmt(run)} วัน`:""}</p>`,rs>1?radv:null));
+  let onLate=null, onTxt="";
+  if(onb!=null){const dl=[o98,o16,o24].map(v=>((v-onb+182.5)%365+365)%365-182.5).sort((a,b)=>a-b), md=Math.round(dl[1]), os=md>=15?3:md>=7?2:1; onLate=onb+dl[2];
+    const ot=md>=7?"ฝนมาช้า":md>=3?"ฝนมาช้ากว่าปกติเล็กน้อย":md<=-3?"ฝนมาเร็วกว่าปกติ":"ฝนมาใกล้เคียงปกติ";
+    const oadv=["อย่าหยุดให้น้ำเมื่อฝนแรกตก รอจนฝนตกสม่ำเสมอ","เลื่อนการปลูกต้นใหม่ออกไปจนฝนมาแน่นอน",`สำรองน้ำไว้ใช้อย่างน้อยถึง ${when(onLate)} (ปีที่ฝนมาช้าที่สุดในอดีต)`];
+    it.push(card2(os,"ปีถัดไป · ต้นฤดูฝน",ot,os===3?"ช้ามาก":os===2?"ช้าลง":md>=3?"ช้าเล็กน้อย":md<=-3?"เร็วขึ้น":"ใกล้ปกติ",
+      `<p>ปกติฝนเริ่มตกสม่ำเสมอราว <b>${when(onb)}</b> ปีเอลนีโญรุนแรงส่วนใหญ่มาราว <b>${when(onb+md)}</b>${md>=3?` ช้ากว่าปกติราว ${fmt(md)} วัน`:md<=-3?` เร็วกว่าปกติราว ${fmt(-md)} วัน`:" (ไม่ต่างจากปกติมาก)"}</p>
+      <div class="kv2"><span>2541</span><b>${when(o98)}</b><span>2559</span><b>${when(o16)}</b><span>2567</span><b>${when(o24)}</b></div>
+      <p class="note">ให้น้ำต่อจนกว่าฝนจะตกสม่ำเสมอจริง อย่าหยุดให้น้ำเพราะฝนตกครั้งแรก</p>`,os>1?oadv:null)); onTxt=md>=7?"slow":""}
+  if(rep) it.push(`<div class="item s3"><div class="ihead"><span class="ico">${ICO.alert}</span><h3>เคยเกิดจริงปี 2567</h3><span class="state">มีประกาศภัยแล้ง</span></div><p>หลังเอลนีโญปี 2566 ตำบลนี้มีประกาศเขตภัยแล้งของ ปภ. ${ev>1?`${fmt(ev)} ครั้ง`:""}</p></div>`);
+  $("ensoList").innerHTML=it.join("");
+  const fsX=fs>1,heatX=hs>1||vs>1;
+  const [on0,,ce0]=t1[12], onS=when(on0), ceS=when(ce0);
+  const steps=[
+   ["เมื่อมีการเตือนเอลนีโญ (มักกลางปี)",["สำรวจแหล่งน้ำ ขุดลอกสระ และซ่อมระบบน้ำให้พร้อม","คำนวณน้ำที่ต้องใช้ตลอดช่วงแล้ง"+(dx>=3?` (ช่วงไม่มีฝนติดต่อกันได้นานราว ${fmt(dS)} วัน)`:"")+" เทียบกับน้ำที่เก็บได้","ชะลอการขยายแปลงหรือปลูกต้นใหม่ในปีนั้น"]],
+   [`ก่อนฝนหมด (ฝนหมดราว ${ceS})`,["เก็บน้ำให้เต็มทุกแหล่ง","เตรียมวัสดุคลุมโคน เช่น ฟาง ใบไม้ เปลือกถั่ว"].concat(z>=5&&ns>1?["ฝนปลายปีจะน้อยลง ให้เก็บน้ำช่วง ต.ค.–ธ.ค. ให้มากที่สุด"]:[])],
+   [`ฤดูแล้ง (${ceS}–${onS})`,["คลุมโคนต้น และให้น้ำแบบน้ำหยดหรือมินิสปริงเกลอร์"].concat(fsX?["จัดลำดับให้น้ำต้นที่กำลังติดผลและต้นปลูกใหม่ก่อน","ถ้าน้ำไม่พอ ลดจำนวนผลที่ไว้"]:[]).concat(heatX?["พ่นหมอกหรือให้น้ำช่วงบ่ายที่ร้อนและแห้ง","พรางแสง ทาปูนขาวลำต้น และห่อผล"]:[]).concat(rs>1?["เฝ้าระวังไรแดงและเพลี้ยไฟ"]:[])],
+   [onLate!=null&&onTxt?`ต้นฤดูฝน (${onS} ถึงราว ${when(onLate)})`:`ต้นฤดูฝน (ราว ${onS})`,["ให้น้ำต่อจนฝนตกสม่ำเสมอ","ปลูกต้นใหม่เมื่อฝนมาแน่นอนแล้ว"]]];
+  $("stepsT").textContent=`เตรียมตัวตามช่วงเวลา · ต.${T[1]}`;
+  $("ensoSteps").innerHTML=steps.map(([k,v])=>`<li><div><span>${k}</span><ul>${v.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></li>`).join("");
+}
+const ZH={1:[19.9,2024,51,36.9,2024,69],2:[7.6,2024,42,19.8,2024,52],3:[31.6,1983,65,49.8,1983,87],4:[21.5,1998,60,41.1,1998,76],5:[1.1,1998,37,3.2,1998,37],6:[0,1998,17,0,1998,15]};
+const BE=y=>y+543;
+function ybars(b,ys,u){const m=Math.max(b,...ys.map(y=>y[1]),1);return `<div class="yrs"><span>ปีปกติ</span><div class="track"><span style="width:${100*b/m}%;background:var(--accent)"></span></div><b>${fmt(b)} ${u}</b>`+ys.map(([y,v])=>`<span>${y}</span><div class="track"><span style="width:${100*v/m}%;background:${v>=b+10?'var(--hi)':'var(--md)'}"></span></div><b>${fmt(v)} ${u}</b>`).join("")+`</div>`}
+function card2(s,when,title,state,body,adv){
+  return `<div class="item s${s}"><span class="when">${when}</span><div class="ihead"><span class="ico">${icon(title)}</span><h3>${title}</h3><span class="state">${state}</span></div>${body}`+
+  (adv?`<details${s===3?" open":""}><summary>วิธีรับมือ</summary><ul>${(Array.isArray(adv)?adv:EADV[adv]).map(a=>`<li>${esc(a)}</li>`).join("")}</ul></details>`:"")+`</div>`;
+}
+function tab(n){
+  $("tb1").setAttribute("aria-selected",n===1);$("tb2").setAttribute("aria-selected",n===2);
+  $("tabRisk").hidden=n!==1;$("tabEnso").hidden=n!==2;
+  try{localStorage.setItem("farmrisk_tab",n)}catch(e){}
+}
+$("tb1").addEventListener("click",()=>tab(1));$("tb2").addEventListener("click",()=>tab(2));
+try{if(localStorage.getItem("farmrisk_tab")==="2")tab(2)}catch(e){}
+const setBar=()=>document.documentElement.style.setProperty('--barh',$("top").offsetHeight+8+'px');setBar();addEventListener('resize',setBar);
+load();
 </script>
 </body>
 </html>
